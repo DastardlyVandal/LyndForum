@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="col-md-2">
+        <h2><%= @user.name %></h2>
+        <h4>Number of posts:</h4> <p> <%= @user.posts.count %> </p>
+        <h4>Threads Started:</h4> <%= @started_streams %></p>
+                <span class="glyphicon glyphicon-thumbs-up"></span><%= @user.thumbup %>
+                <span class="glyphicon glyphicon-thumbs-down"></span><%= @user.thumbdown %>
+    </div>
+
+    <!-- begin post history -->
+    <div class="col-md-9 ">
+        <h2> Post History</h2>
+        <div class="post-history">
+            <% @posts.each do |posts| %>
+                <div class="card">
+                    <h4><a href="/board/<%= Stream.find(posts.stream_id).board_id.to_s%>/streams/<%= Stream.find(posts.stream_id).id.to_s%>#<%=posts.id %>">
+                        <%= Stream.find(posts.stream_id).title %>
+                    </a></h4>
+                    <div class="post-content col-md-9">
+                        <p><%= markdown(posts.content) %></p>
+                        <div class="post-footer">Posted <%= time_ago_in_words(posts.created_at) %> ago</div>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+    <!-- end post history -->
+</div>

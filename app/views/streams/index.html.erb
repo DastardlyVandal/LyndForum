@@ -1,0 +1,23 @@
+<div class="container ">
+    <h1><%= @board_name %> </h1>
+    <% unless @streams.any? %>
+        <h4> No threads. :( </h4>
+        <h4> Click <a href="/board/<%= @board_id %>/streams/new">here</a> to start a new one! </h4>
+    <% end %>
+    <% @streams.each do |streams| %>
+        <div class="card">
+            <h3><a href="/board/<%= @board_id %>/streams/<%= streams.id %>"><%= streams.title %></a></h3>
+            <div>
+                By: <%= @users.find(streams.user_id).name %></br>
+                Posted <%= time_ago_in_words(streams.created_at) %> ago
+            </div>
+        </div>
+    <% end %>
+</div>
+
+<div class="container container-fluid navbar-fixed-bottom bot-nav">
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="/board/"/><span class="glyphicon glyphicon-step-backward"></span> Back to Boards</a></li>
+        <li><a href="/board/<%= @board_id %>/streams/new"><span class="glyphicon glyphicon-edit"></span>New Thread</a></li>
+    </ul>
+</div>

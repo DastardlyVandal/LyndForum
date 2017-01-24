@@ -1,0 +1,28 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container-fluid top-navbar">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="/">Home</a>
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-nav">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+		</div>
+		<ul class="nav navbar-nav navbar-right collapse navbar-collapse" id="top-nav">
+			<% if user_signed_in? %>
+				<li><a href="/board/"><span class="glyphicon glyphicon-th-list"></span>Forum</a></li>
+				<li><a href="/users/<%= current_user.id %>"><span class="glyphicon glyphicon-user"></span>Profile</a></li>
+				<li>
+					<%= link_to(destroy_user_session_path, :method => :delete) do %>
+						Sign Out<span class="glyphicon glyphicon-log-out after-text-glyph"></span>
+					<% end %>
+				</li>
+			<% else %>
+				<li>
+					<%= link_to('Sign in', new_user_session_path)  %>
+				</li>
+			<% end %>
+		</ul>
+	</div>
+</nav>

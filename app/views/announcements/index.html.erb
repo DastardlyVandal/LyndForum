@@ -1,0 +1,25 @@
+<div class="container">
+    <h1><span class="glyphicon glyphicon-bullhorn"></span> Announcements</h1>
+    <div>
+        <% @announcements.each do |announcements| %>
+        <div class="card">
+            <a href="/announcements/<%= announcements.id.to_s %>"><h3><%= announcements.title %></h3></a>
+            <div>
+                <p>Posted by:
+                    <a href="/users/<%= announcements.user_id %>"><%= User.find(announcements.user_id).name %></a>
+                </p>
+                <p><%= announcements.created_at %></p>
+            </div>
+        </div>
+        <% end %>
+    </div>
+</div>
+
+<div class="container container-fluid navbar-fixed-bottom bot-nav">
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="/board/"/><span class="glyphicon glyphicon-th-list"></span>Boards</a></li>
+        <% if current_user.role == 0 %>
+        <li><a href="/announcements/new"/><span class="glyphicon glyphicon-wrench"></span>New Announcement</a></li>
+        <% end %>
+    </ul>
+</div>

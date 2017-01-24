@@ -1,0 +1,22 @@
+<div class="container">
+    <h1>New Announcement</h1>
+    <%= form_tag ('/announcements/'), url: { :action => "create", } do %>
+        <div class="field">
+            <div class="field">
+                <%= label_tag 'Announcement Title: ' %></br>
+                <%= text_field_tag :title, nil, :required => true, size: 100, maxlength: 100 %></br>
+                <%= label_tag 'Content: '%></br>
+                <%= text_area_tag :content, nil, :required => true, size: "100x10" %>
+            </div>
+            <div class="action">
+                <%= submit_tag 'Submit Post' %>
+            </div>
+        </div>
+    <% end %>
+
+</div>
+<div class="container container-fluid navbar-fixed-bottom bot-nav">
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="/announcements/"/><span class="glyphicon glyphicon-step-backward"></span>Return to Announcements</a></li>
+    </ul>
+</div>

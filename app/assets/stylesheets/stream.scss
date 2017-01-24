@@ -1,0 +1,21 @@
+// Place all the styles related to the stream controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.profile {
+    float: left;
+    width: 100px;
+    padding-left: 3px;
+    //height: 100%;
+}
+
+.post-stream {
+    will-change: transform;
+    width: 100%;
+    overflow: auto;
+}
+
+.stream_controls {
+    position: absolute;
+    bottom: 0px;
+}

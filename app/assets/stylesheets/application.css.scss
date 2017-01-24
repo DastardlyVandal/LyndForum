@@ -1,0 +1,302 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+ @import "constants";
+
+
+body {
+    background-color: $application-bg-color;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    padding-bottom: 50px;
+
+    /*///////// Background stuff ////////////////////
+      background-color: $color-primary-0;
+      background-image: image-url("brand-logo.png");
+      background-repeat:round;
+      background-size:contain;
+     //////////////////////////////////////////////*/
+}
+
+textarea {
+//    padding: 100px 10px;
+    line-height: 28px;
+    width: 100%;
+    height: 300px;
+}
+
+// Stylings for text fields
+input[type="text" i] {
+    width: 100%;
+}
+
+// Stylings for input buttons
+input[type=submit] {
+    padding:10px 15px;
+    background:$color-primary-4;
+    color: $color-complement-0;
+    border:0 none;
+    cursor:pointer;
+    margin: 3px;
+}
+
+
+a {
+    color: $color-primary-0;
+}
+a:hover, a:focus {
+  text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+}
+
+// For the home/splash page content
+.home p {
+    font-size: large;
+}
+
+
+.content {
+    padding-top: 60px;
+}
+
+.container {
+    float: none;
+    background-color: $container-color;
+    border: 1px solid black;
+    margin-bottom: 3px;
+    border-width: thin;
+    border-color: black;
+}
+
+.glyphicon {
+    padding-right: 3px;
+    padding-left: 3px;
+}
+
+
+.navbar {
+     border: none;
+     border-radius: 0px;
+     background-color: $navbar-color;
+     color: $color-complement-0;
+     text-align: center;
+}
+
+.navbar-fixed-top {
+    height: 50px;
+}
+
+.nav > li > a {
+    color: $color-complement-0;
+}
+
+// Setting the colors for the navbars
+.navbar-default .navbar-brand:hover , .navbar-default .navbar-brand:focus,
+.navbar-default .navbar-nav > li > a:hover, .nav > li > a:hover, .nav > li > a:focus,
+.nav > li > a:hover, .nav > li > a:hover  {
+     color: $color-complement-0;
+     background-color: $color-primary-3;
+}
+
+.navbar-default .navbar-nav > li > a {
+     color: $color-complement-0;
+     padding-bottom: 14px;
+     //height: 66px;
+}
+
+.navbar-nav {
+     margin: 0;
+}
+
+.navbar-default .navbar-brand {
+     color: $color-complement-0;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    border: none;
+}
+
+.navbar-collapse {
+     box-shadow: none;
+     background-color: $navbar-color;
+     z-index: -1;
+}
+
+.bot-nav { // Keep this below .container
+    border-radius: 0;
+    background-color: $navbar-color;
+    margin-bottom: 0;
+    li {
+        float: left;
+    }
+}
+
+// Used when quoting other users
+blockquote {
+    border-left-color: $color-primary-0;
+    border-left-width: thin;
+    font-size: 1em;
+    padding: 1px 5px;
+}
+
+.notice {
+    background-color: $color-complement-0;
+}
+
+// TODO: Currently only used with "Send Money" in users/show
+// Pick a different way to it without needing this
+.button {
+    overflow: hidden;
+    white-space: nowrap;
+
+    color: $color-complement-0;
+    background-color: $color-primary-4;
+    padding-left: 3px;
+    padding-right: 3px;
+    margin: 3px;
+
+    border-style: dotted;
+    border-width: thin;
+    border-color: black;
+    border-top: none;
+    border-left: none;
+    border-radius: 3px;
+
+    text-align: center;
+}
+
+.button:active {
+    border-style: dotted;
+    border-width:thin;
+    border-color: black;
+    border: none;
+}
+
+.button:hover {
+    background-color: $color-primary-2;
+    color: $color-complement-0;
+}
+
+.poster-name {
+    float: right;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 12;
+}
+
+.card {
+    display: inline-block;
+    width: 98%;
+    margin: 3px;
+    border-radius: 6px;
+    border-style: dotted;
+    border-width: 1px;
+    border-top: none;
+    border-left: none;
+    border-bottom-left-radius: 0px;
+    border-color: $color-primary-0;
+
+    background-color: $post;
+}
+
+.post-stream {
+    will-change: transform;
+    margin-bottom: 3px;
+}
+
+.post-content {
+    background-color: $post-content;
+    border-style: solid;
+    border-width: thin;
+    border-color: black;
+    border-radius: 3px;
+    word-wrap: break-word;
+    margin: 6px;
+
+    // For handling the markdown in posts, so it
+    // doesn't make the threads look ugly
+    h1, h2, h3, h4 {
+        font-size: x-large;
+        font-weight: bold;
+        border-bottom: none;
+    }
+
+    ul {
+        list-style: circle;
+    }
+
+    .post-footer {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+}
+
+// See about moving this in with .post-content
+.post-footer {
+    text-align: right;
+    background-color: white;
+    padding-right: 3px;
+}
+
+.post-history {
+    max-height: 50vh;
+    overflow-y: scroll;
+    will-change: transform;
+    margin-bottom: 3px;
+}
+
+.reports {
+    max-height: 50vh;
+    overflow-y: scroll;
+    width: 100%;
+}
+
+.pagination {
+    a, span, em {
+        padding: 10px;
+        display: inline-block;
+        margin-top: 3px;
+        border: 1px solid black;
+        color: $color-complement-0;
+        background-color: $color-primary-4;
+    }
+
+    .current {
+        padding: 10px;
+        border: 1px solid black;
+        color: $color-complement-0;
+        background-color: $color-primary-2;
+    }
+}
+
+.pages {
+    margin-left: -15px;
+    margin-right: -15px;
+    padding: 3px;
+//    border-top: 1px solid black;
+    background-color: $post;
+}
+
+.page_info {
+    float: right;
+}
+
+.board-title {
+    width:25%;
+}

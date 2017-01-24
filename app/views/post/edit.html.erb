@@ -1,0 +1,13 @@
+<div class="container">
+    <h1>Edit Post</h1>
+    <p>Just click submit if you don't wish to make any changes.</p>
+    <%= form_for [@board, @stream, @post], url: { :action => "update", } do |f| %>
+        <div class="field">
+            <%= f.label 'Response: ' %></br>
+            <%= f.text_area :content, size: "50x10", required: true %>
+        </div>
+        <div class="action">
+            <%= f.submit 'Submit Post' %>
+        </div>
+    <% end %>
+</div>

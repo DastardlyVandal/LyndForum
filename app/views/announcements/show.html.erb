@@ -1,0 +1,27 @@
+<div class="container">
+    <h1><%= @announcement.title %></h1>
+    <div class="card">
+        <div class="col-md-2">
+            <h4><a href="/users/<%= User.find(@announcement.user_id).id %>"><%= User.find(@announcement.user_id).name %></a></h4>
+            <div>
+                    <span class="glyphicon glyphicon-tint">: 11</span>
+                    <span class="glyphicon glyphicon-road">: 239</span>
+                    <span class="glyphicon glyphicon-flash">: 581</span>
+                    <span class="glyphicon glyphicon-cutlery">: -17</span>
+            </div>
+            Role: <%= @role %>
+        </div>
+            <div class="post-content col-md-9">
+                <p><%= markdown(@announcement.content) %></p>
+                <div class="post-footer">Posted <%= time_ago_in_words(@announcement.created_at) %> ago</div>
+            </div>
+    </div>
+
+</div>
+
+<div class="container container-fluid navbar-fixed-bottom bot-nav">
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="/board/"/><span class="glyphicon glyphicon-th-list"></span> Boards</a></li>
+        <li><a href="/announcements/"/><span class="glyphicon glyphicon-bullhorn"></span>Announcements</a></li>
+    </ul>
+</div>

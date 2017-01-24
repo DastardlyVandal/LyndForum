@@ -1,0 +1,18 @@
+<div class="container">
+        <h1>Make Post </h1>
+        <%= form_for [@user, @post], url: { :action => "create", } do |f| %>
+            <div class="field">
+                <%= f.label 'Response: ' %></br>
+                <%= f.text_area :content, required: true %>
+            </div>
+            <div class="action">
+                <%= f.submit 'Submit Post' %>
+            </div>
+        <% end %>
+</div>
+
+<div class="container container-fluid navbar-fixed-bottom bot-nav">
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="/board/<%= params[:board_id]%>/streams/<%= params[:stream_id]%>"><span class="glyphicon glyphicon-step-backward"></span>Back to Thread</a></li>
+    </ul>
+</div>

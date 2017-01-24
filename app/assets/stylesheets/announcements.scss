@@ -1,0 +1,24 @@
+// Place all the styles related to the announcements controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.announcements {
+    max-height: 70vh;
+    overflow-y: scroll;
+    will-change: transform;
+}
+
+.announcement-content {
+    padding: 3px;
+    border-style: dotted;
+    border-width: thin;
+    border-color: black;
+    border-radius: 3px;
+    overflow: auto;
+    margin: 3px;
+    white-space: pre-wrap;
+    overflow-y: scroll;
+    max-height: 70vh;
+    will-change: transform;
+    background-color: white;
+}

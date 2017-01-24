@@ -1,0 +1,57 @@
+<div>
+    <div class="container">
+        <h1><%= @stream_title %> </h1>
+        <div>
+            Posted by: <%= @users.find(@streams.find(params[:id]).user_id).name %>
+        </div>
+        <div class="post-stream ">
+            <% @posts.each do |posts| %>
+                <div class="card" id="<%= posts.id %>">
+                    <div class="col-md-1">
+                        <h3>
+                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                            <span class="glyphicon glyphicon-thumbs-down"></span>
+                        </h3>
+                    </div>
+                    <div class="col-md-2">
+                        <h4>
+                            <a href="/users/<%= User.find(posts.user_id).id %>"><%= User.find(posts.user_id).name %></a>
+                        </h4>
+                        <!-- <p>Last seen: <%= User.find(posts.user_id).last_sign_in_at %></p> -->
+                    </div>
+                        <div class="post-content col-md-9">
+                            <p><%= markdown(posts.content) %></p>
+                            <div class="post-footer">Posted <%= time_ago_in_words(posts.created_at) %> ago</div>
+                        </div>
+
+                        <% if current_user.role == 0 %>
+                            <div class="admin-tools hidden col-md-3">
+                                    <a href=":/post/<%= posts.id.to_s%>/edit"><span class="glyphicon glyphicon-edit"></span>Edit post</a>
+                                    <a href=":/post/<%= posts.id.to_s%>/delete"><span class="glyphicon glyphicon-trash"></span>Delete post</a>
+                            </div>
+
+                        <% end %>
+                </div>
+            <% end %>
+        </div>
+        <div class="pages">
+            <div class="page_info">
+                <%= page_entries_info @posts %>
+            </div>
+            <%= will_paginate @posts, inner_window: 2, outer_window: 2 %>
+      </div>
+    </div>
+
+    <div class="container navbar-fixed-bottom bot-nav">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/board/<%= @board_id %>/streams/"/><span class="glyphicon glyphicon-step-backward"></span> Back to <%= @board_name %></a></li>
+            <li><a href="/board/<%= @board_id %>/streams/<%= @stream_id %>/post/new"><span class="glyphicon glyphicon-edit"></span>Reply</a></li>
+            <% if current_user.role == 0 %>
+            <li class="admin-controls admin-button"><a><span class="glyphicon glyphicon-wrench"></span></a></li>
+            <% end %>
+        </ul>
+    </div>
+
+
+
+</div>
