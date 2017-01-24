@@ -62,6 +62,7 @@ class StreamsController < ApplicationController
         @post = Post.new
         @users = User.all
         @streams = Stream.all
+        @votes = Vote.all
     else
         flash[:notice] = "Thread not found."
         redirect_to "/board/"

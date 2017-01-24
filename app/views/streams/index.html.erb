@@ -15,9 +15,12 @@
     <% end %>
 </div>
 
-<div class="container container-fluid navbar-fixed-bottom bot-nav">
-    <ul class="nav navbar-nav navbar-right">
-        <li><a href="/board/"/><span class="glyphicon glyphicon-step-backward"></span> Back to Boards</a></li>
-        <li><a href="/board/<%= @board_id %>/streams/new"><span class="glyphicon glyphicon-edit"></span>New Thread</a></li>
-    </ul>
-</div>
+<nav class="container navbar-fixed-bottom bot-nav" role="navigation">
+        <ul class="nav navbar-nav navbar-left hidden-sm hidden-xs">
+            <li><a href="/board/"/><span class="glyphicon glyphicon-step-backward"></span> Back to Boards</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="hidden-md hidden-lg"><a href="/board/"/><span class="glyphicon glyphicon-step-backward"></span> Back to Boards</a></li>
+            <li><a href="/board/<%= @board_id %>/streams/new"><span class="glyphicon glyphicon-edit"></span>New Thread</a></li>
+        </ul>
+</nav>

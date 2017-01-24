@@ -1,28 +1,42 @@
 <div>
-    <div class="container">
+    <div class="container" id="<%= @board_id %>">
         <h1><%= @stream_title %> </h1>
         <div>
             Posted by: <%= @users.find(@streams.find(params[:id]).user_id).name %>
         </div>
-        <div class="post-stream ">
+        <div class="post-stream " id="<%= @stream_id %>">
             <% @posts.each do |posts| %>
                 <div class="card" id="<%= posts.id %>">
                     <div class="col-md-1">
                         <h3>
-                            <span class="glyphicon glyphicon-thumbs-up"></span>
-                            <span class="glyphicon glyphicon-thumbs-down"></span>
+                                <% if @votes.where(post_id: posts.id, user_id: current_user.id).present? %>
+                                    <% if @votes.where(post_id: posts.id, user_id: current_user.id).pluck(:vote) == 1 %>
+                                        <span class="glyphicon glyphicon-thumbs-up voted"></span>
+                                        <span class="glyphicon glyphicon-thumbs-down"></span>
+                                    <% else %>
+                                        <span class="glyphicon glyphicon-thumbs-up"></span>
+                                        <span class="glyphicon glyphicon-thumbs-down voted"></span>
+                                    <% end %>
+                                <% else %>
+                                    <span class="glyphicon glyphicon-thumbs-up vote-up"></span>
+                                    <span class="glyphicon glyphicon-thumbs-down vote-down"></span>
+                                <% end %>
                         </h3>
+
+                        <p>Votes: <%= posts.votes.count %></p>
+                    </div>
+
+                    <div class="post-content col-md-9">
+                        <p><%= markdown(posts.content) %></p>
+                        <div class="post-footer">
+                            Posted <%= time_ago_in_words(posts.created_at) %> ago
+                        </div>
                     </div>
                     <div class="col-md-2">
                         <h4>
                             <a href="/users/<%= User.find(posts.user_id).id %>"><%= User.find(posts.user_id).name %></a>
                         </h4>
-                        <!-- <p>Last seen: <%= User.find(posts.user_id).last_sign_in_at %></p> -->
                     </div>
-                        <div class="post-content col-md-9">
-                            <p><%= markdown(posts.content) %></p>
-                            <div class="post-footer">Posted <%= time_ago_in_words(posts.created_at) %> ago</div>
-                        </div>
 
                         <% if current_user.role == 0 %>
                             <div class="admin-tools hidden col-md-3">
@@ -34,24 +48,27 @@
                 </div>
             <% end %>
         </div>
-        <div class="pages">
+        <div>
             <div class="page_info">
                 <%= page_entries_info @posts %>
             </div>
             <%= will_paginate @posts, inner_window: 2, outer_window: 2 %>
-      </div>
+        </div>
     </div>
 
-    <div class="container navbar-fixed-bottom bot-nav">
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="/board/<%= @board_id %>/streams/"/><span class="glyphicon glyphicon-step-backward"></span> Back to <%= @board_name %></a></li>
-            <li><a href="/board/<%= @board_id %>/streams/<%= @stream_id %>/post/new"><span class="glyphicon glyphicon-edit"></span>Reply</a></li>
-            <% if current_user.role == 0 %>
-            <li class="admin-controls admin-button"><a><span class="glyphicon glyphicon-wrench"></span></a></li>
-            <% end %>
-        </ul>
-    </div>
-
+    <nav class="container navbar-fixed-bottom bot-nav" role="navigation">
+    		<ul class="nav navbar-nav navbar-left hidden-sm hidden-xs">
+                <li><a href="/board/<%= @board_id %>/streams/"/><span class="glyphicon glyphicon-step-backward"></span> Back to <%= @board_name %></a></li>
+    		</ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="hidden-md hidden-lg"><a href="/board/<%= @board_id %>/streams/"/><span class="glyphicon glyphicon-step-backward"></span> Back to <%= @board_name %></a></li>
+                <li><a href="/board/<%= @board_id %>/streams/<%= @stream_id %>/post/new"><span class="glyphicon glyphicon-edit"></span>Reply</a></li>
+            </ul>
+    </nav>
 
 
 </div>
+
+<script>
+    vote();
+</script>

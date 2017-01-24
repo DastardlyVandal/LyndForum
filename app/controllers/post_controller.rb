@@ -34,10 +34,10 @@ class PostController < ApplicationController
     end
 
     def edit
-        unless current_user.role == 0
-            flash[:notice] = "You are not permitted to perform this action."
-            redirect_to(root)
-        end
+#        unless current_user.role == 0
+#            flash[:notice] = "You are not permitted to perform this action."
+#            redirect_to(:root)
+#        end
         @post = Post.find_by_id(params[:id])
     end
 end

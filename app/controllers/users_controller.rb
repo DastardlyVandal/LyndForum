@@ -19,6 +19,8 @@ User Roles:
                 @posts = @user.posts.each
                 @streams = Stream.all
                 @started_streams = Stream.where(user_id: @user.id).length
+                @thumbup = @user.votes.where(vote: 1).sum(:vote)
+                @thumbdown = @user.votes.where(vote: -1).sum(:vote)
             else
                 flash[:notice] = "User not found."
                 redirect_to "/users/" + current_user.id.to_s

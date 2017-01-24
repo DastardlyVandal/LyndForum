@@ -300,3 +300,19 @@ blockquote {
 .board-title {
     width:25%;
 }
+
+.votes {
+//    background-color: $color-primary-2;
+//    .glyphicon {
+//        color: black;
+//    }
+
+    .glyphicon:hover {
+        color: $color-complement-0;
+        background-color: $color-primary-0;
+    }
+}
+
+.voted {
+    color: $color-complement-0;
+}
