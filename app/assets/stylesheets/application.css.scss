@@ -218,6 +218,7 @@ blockquote {
 .stream_title {
     border-bottom: 1px solid black;
     margin-bottom: 3px;
+    background-color: $post;
 }
 
 .container > .board_card  {ul {
@@ -309,7 +310,11 @@ blockquote {
 }
 
 .board-title {
-    width:25%;
+    border:3px solid $container-color; // 1px solid black;
+    //border-right: 3px solid $container-color;
+
+//    margin: 1px;
+    background-color: $post;
 }
 
 .votes {
@@ -335,4 +340,12 @@ blockquote {
 .admin-tools {
     float: left;
     width: 100%;
+}
+
+.sticky {
+    float:right;
+}
+
+.board-announcements {
+    height: 100px;
 }

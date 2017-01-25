@@ -1,6 +1,16 @@
 <div>
     <div class="container" id="<%= @board_id %>">
-        <h1><%= @stream_title %> </h1>
+        <% if @stream_stickied == true %>
+            <h2><span class="sticky glyphicon glyphicon-paperclip"></span></h2>
+        <% end %>
+        <h1>
+            <%= @stream_title %>
+        </h1>
+                <% if user_signed_in? %>
+                    <% if current_user.role == 0 and @stream_stickied == false %>
+                        <a class=" sticky admin-tools hidden"><span class="glyphicon glyphicon-paperclip"></span>Sticky Post</a>
+                    <% end %>
+                <% end %>
         <div>
             Posted by: <%= @users.find(@streams.find(params[:id]).user_id).name %>
         </div>
@@ -86,4 +96,9 @@
 
 <script>
     vote();
+    <% if user_signed_in? %>
+        <% if current_user.role == 0 %>
+            sticky();
+        <% end %>
+    <% end %>
 </script>

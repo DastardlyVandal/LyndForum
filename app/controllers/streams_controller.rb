@@ -44,9 +44,8 @@ class StreamsController < ApplicationController
             _page = 1
         end
 
-#        @streams = Stream.where(board_id: params[:board_id]).each.sort_by{|stream| stream.updated_at}.reverse
         @streams = Stream.where(board_id: params[:board_id])
-        @streams = @streams.order(updated_at: :desc)
+        @streams = @streams.order(is_stickied: :desc, updated_at: :desc)
         @streams = @streams.paginate(page: _page, per_page: 7)
         @board_name = Board.find(params[:board_id].to_i).name
         @board_id = params[:board_id]
@@ -71,6 +70,7 @@ class StreamsController < ApplicationController
         @board_name = Board.find(params[:board_id].to_i).name
         @board_id = params[:board_id]
         @stream_id = params[:id]
+        @stream_stickied = Stream.find(@stream_id).is_stickied?
         @post = Post.new
         @users = User.all
         @streams = Stream.all
@@ -79,6 +79,17 @@ class StreamsController < ApplicationController
         flash[:notice] = "Thread not found."
         redirect_to "/board/"
     end
+  end
+
+  def sticky
+#      byebug
+      validate_user
+      if current_user.role == 0
+          @stream = Stream.find_by_id(params[:stream])
+          @sticky = !@stream.is_stickied
+          @stream.update(is_stickied: @sticky)
+          redirect_to :back
+      end
   end
 
 end

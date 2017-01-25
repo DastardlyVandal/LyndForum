@@ -7,7 +7,13 @@
         <div class="container-fluid">
         <% @streams.each do |streams| %>
             <div class="stream_title">
-                <h3><a href="/board/<%= @board_id %>/streams/<%= streams.id %>"><%= streams.title %></a></h3>
+                <h3>
+                    <% if streams.is_stickied? %>
+                        <span class="sticky glyphicon glyphicon-paperclip"></span>
+                    <% end %>
+                    <a href="/board/<%= @board_id %>/streams/<%= streams.id %>"><%= streams.title %></a>
+                </h3>
+
                 <div>
                     By: <%= @users.find(streams.user_id).name %></br>
                     Posted <%= time_ago_in_words(streams.created_at) %> ago

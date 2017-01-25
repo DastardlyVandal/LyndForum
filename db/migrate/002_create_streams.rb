@@ -4,6 +4,7 @@ class CreateStreams < ActiveRecord::Migration[5.0]
       t.string :title
       t.integer :user_id
       t.integer :board_id
+      t.boolean :is_stickied, default: false
       t.timestamps
     end
   end

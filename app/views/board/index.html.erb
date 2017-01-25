@@ -2,19 +2,20 @@
     <h3><span class="glyphicon glyphicon-bullhorn"></span>Announcements</h3>
     <div class="board-announcements post-stream">
         <% @announcements.each do |announcements| %>
-        <div class="col-lg-12">
+        <div class="col-lg-12 stream_title">
             <a href="/announcements/<%= announcements.id.to_s %>"><h4><%= announcements.title %></h4></a>
             <div>Made: <%= time_ago_in_words(announcements.created_at) %> ago</div>
         </div>
         <% end %>
     </div>
+    <a href="/announcements/">View Announcements</a>
 </div>
 <div class="container">
     <h3><span class="glyphicon glyphicon-th-list"></span>Forum</h3>
 
     <div class="container-fluid">
         <% @boards.each do |board| %>
-                <div class="col-md-4">
+                <div class="col-md-4 board-title">
                     <h3><a href="/board/<%= board.id %>/streams/"><%= board.name %></a></h3>
                     <p>Threads: <%= board.streams.length %></p>
                 </div>
