@@ -7,3 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 boards = Board.create([{ name: 'General' }, { name: 'News' }, { name: 'Politics' }, { name: 'Technology' } ])
+user1 = User.create! name: 'Naomi', email: 'a@a.com', password: 'aaaaaa', role: 0
+user2 = User.create! name: 'Franki', email: 'b@b.com', password: 'bbbbbb', role: 1
+user3 = User.create! name: 'Hunter', email: 'c@c.com', password: 'cccccc', role: 2

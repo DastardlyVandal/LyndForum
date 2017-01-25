@@ -1,7 +1,8 @@
 class StreamsController < ApplicationController
-  before_filter :validate_user
 
   def create
+      validate_user
+
       unless params[:title].match(" ").present?
           flash[:notice] = "Please write your titles as a sentence."
           redirect_to(:back)
@@ -26,6 +27,8 @@ class StreamsController < ApplicationController
   end
 
   def new
+      validate_user
+
       @user = current_user
       @post = Post.new
       @board = Board.find(params[:board_id].to_i)
@@ -35,7 +38,7 @@ class StreamsController < ApplicationController
 
   def index
     if Board.find_by_id(params[:board_id]).present?
-        @streams = Stream.where(board_id: params[:board_id]).each
+        @streams = Stream.where(board_id: params[:board_id]).each.sort_by{|stream| stream.updated_at}.reverse
         @board_name = Board.find(params[:board_id].to_i).name
         @board_id = params[:board_id]
         @users = User.all

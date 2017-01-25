@@ -10,8 +10,8 @@
             </button>
 		</div>
 		<ul class="nav navbar-nav navbar-right collapse navbar-collapse" id="top-nav">
+			<li><a href="/board/"><span class="glyphicon glyphicon-th-list"></span>Forum</a></li>
 			<% if user_signed_in? %>
-				<li><a href="/board/"><span class="glyphicon glyphicon-th-list"></span>Forum</a></li>
 				<li><a href="/users/<%= current_user.id %>"><span class="glyphicon glyphicon-user"></span>Profile</a></li>
 				<li>
 					<%= link_to(destroy_user_session_path, :method => :delete) do %>

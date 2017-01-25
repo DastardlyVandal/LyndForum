@@ -1,9 +1,10 @@
 class PostController < ApplicationController
-    before_filter :validate_user #change to before_action
 
     def create
+        validate_user
         if params[:post][:content].length <= 2000
             current_user.posts.create(stream_id: params[:stream_id].to_i, content: params[:post][:content])
+            stream = Stream.find_by_id(params[:stream_id]).update( updated_at: Time.now)
             redirect_to board_streams_path + '/' + params[:stream_id]
         else
             flash[:notice] = "Comment is too long."
@@ -12,6 +13,8 @@ class PostController < ApplicationController
     end
 
     def new
+        validate_user
+
         @user = current_user
         @post = Post.new
         @board = Board.find(params[:board_id].to_i)
@@ -19,6 +22,7 @@ class PostController < ApplicationController
     end
 
     def update
+        validate_user
         unless current_user.role == 0
             flash[:notice] = "You are not permitted to perform this action."
             redirect_to(root)
@@ -34,10 +38,15 @@ class PostController < ApplicationController
     end
 
     def edit
-#        unless current_user.role == 0
-#            flash[:notice] = "You are not permitted to perform this action."
-#            redirect_to(:root)
-#        end
+        validate_user
+        unless current_user.role == 0
+            flash[:notice] = "You are not permitted to perform this action."
+            redirect_to :back
+        end
         @post = Post.find_by_id(params[:id])
+        @stream_id = @post.stream_id
+        @board_id = Stream.find_by_id(@stream_id).board_id
     end
+
+
 end

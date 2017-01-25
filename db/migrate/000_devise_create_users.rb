@@ -20,8 +20,6 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
       t.string   :current_sign_in_ip
       t.string   :last_sign_in_ip
       t.integer :role, null: false, default: 2
-      t.integer :thumbup, default: 0
-      t.integer :thumbdown, default: 0
 
       ## Confirmable
       # t.string   :confirmation_token

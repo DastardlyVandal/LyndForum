@@ -8,13 +8,6 @@ Rails.application.routes.draw do
 
   root "home#index"
 
-  resources :home do
-      resources :users
-  end
-
-  # routes for Boards
-  match 'board', to: 'board#show', via: :get
-
   resources :board do
       resources :streams do
           resources :post do
@@ -25,7 +18,6 @@ Rails.application.routes.draw do
 
   resources :announcements
 
-  get 'streams/index'
   get '/board/:board_id/streams/:streams_id/post/:id/edit', to: 'post#edit'
   post '/board/:board_id/streams/:stream_id/post/:post_id/votes/create', to: 'votes#create'
 

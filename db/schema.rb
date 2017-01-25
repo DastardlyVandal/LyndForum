@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 5) do
   create_table "announcements", force: :cascade do |t|
     t.string   "title"
     t.string   "content"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -54,8 +55,6 @@ ActiveRecord::Schema.define(version: 5) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.integer  "role",                   default: 2,  null: false
-    t.integer  "thumbup",                default: 0
-    t.integer  "thumbdown",              default: 0
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -66,6 +65,7 @@ ActiveRecord::Schema.define(version: 5) do
   create_table "votes", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "post_id"
+    t.integer  "poster_id"
     t.integer  "vote"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

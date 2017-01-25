@@ -1,7 +1,7 @@
 class BoardController < ApplicationController
-  before_filter :validate_user
 
   def create
+      validate_user
       unless current_user.role == 0
           flash[:notice] = "You are not authorized to create new boards."
           redirect_to(:back)
@@ -13,6 +13,7 @@ class BoardController < ApplicationController
 
 
   def new
+      validate_user
       unless current_user.role == 0
           flash[:notice] = "Authorization Failed."
           redirect_to board_path
@@ -21,7 +22,7 @@ class BoardController < ApplicationController
   end
 
 
-  def show
+  def index
       @boards = Board.all
       @announcements = Announcement.all.reverse_order
   end

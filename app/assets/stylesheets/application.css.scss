@@ -316,3 +316,12 @@ blockquote {
 .voted {
     color: $color-complement-0;
 }
+
+.disabled {
+    color: $container-color;
+}
+
+.admin-tools {
+    float: left;
+    width: 100%;
+}

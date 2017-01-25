@@ -20,10 +20,11 @@
 
 <div class="container container-fluid navbar-fixed-bottom bot-nav">
     <ul class="nav navbar-nav navbar-right">
-        <% if current_user.role == 0 %>
-            <li><a href="/announcements/new"/>New Announcement<span class="glyphicon glyphicon-edit"></span></a></li>
-            <li><a href="/board/new">New Board<span class="glyphicon glyphicon-plus"></span></a></li>
+        <% if user_signed_in? %>
+            <% if current_user.role == 0 %>
+                <li><a href="/announcements/new"/>New Announcement<span class="glyphicon glyphicon-edit"></span></a></li>
+                <li><a href="/board/new">New Board<span class="glyphicon glyphicon-plus"></span></a></li>
+            <% end %>
         <% end %>
-        <li><a><span class="glyphicon"></span></a></li>
     </ul>
 </div>

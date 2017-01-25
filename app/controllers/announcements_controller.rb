@@ -1,6 +1,8 @@
 class AnnouncementsController < ApplicationController
 
     def create
+        validate_user
+
         unless current_user.role == 0
             flash[:notice] = "You are not authorized to create new boards."
             redirect_to(:back)
@@ -17,6 +19,8 @@ class AnnouncementsController < ApplicationController
     end
 
     def new
+        validate_user
+
         unless current_user.role == 0
             flash[:notice] = "Authorization Failed."
             redirect_to board_path
@@ -29,7 +33,6 @@ class AnnouncementsController < ApplicationController
         if Announcement.find_by_id(params[:id]).present?
             @announcement = Announcement.find_by_id(params[:id])
             @user = User.find_by_id(@announcement.user_id)
-            @role = get_occupation(@user)
         else
             flash[:notice] = "Announcement not found."
             redirect_to "/announcements/"
@@ -41,19 +44,4 @@ class AnnouncementsController < ApplicationController
 
     end
 
-    private
-        def get_occupation(user)
-            if user.role == 0
-                commitment = "Admin"
-            elsif user.role == 1
-                commitment = "General"
-            elsif user.role == 2
-                commitment = "Small Farmer"
-            elsif user.role == 3
-                commitment = "Ag-Industrial Farmer"
-            else
-                commitment = "Not Set"
-            end
-            return commitment
-        end
 end

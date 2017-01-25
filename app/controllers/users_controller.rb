@@ -1,13 +1,10 @@
 class UsersController < ApplicationController
-    before_filter :validate_user
 
 =begin
 User Roles:
-    Admin: Ann - 0
-    General: Gerald - 1
-    Small-Farm: Sally - 2
-    Ag-Indus: Albert - 3
-    un-assigned: Uncle - 4
+  0 => Admin
+  1 => Mod
+  2 => Normal User
 =end
 
     def show
@@ -19,36 +16,13 @@ User Roles:
                 @posts = @user.posts.each
                 @streams = Stream.all
                 @started_streams = Stream.where(user_id: @user.id).length
-                @thumbup = @user.votes.where(vote: 1).sum(:vote)
-                @thumbdown = @user.votes.where(vote: -1).sum(:vote)
+                @thumbup = Vote.where(poster_id: @user.id, vote: 1).sum(:vote)
+                @thumbdown = Vote.where(poster_id: @user.id, vote: -1).sum(:vote)
             else
                 flash[:notice] = "User not found."
                 redirect_to "/users/" + current_user.id.to_s
             end
         end
-    end
-
-    def update
-        @user = User.find_by_id(current_user.id)
-
-        if params[:user][:role] == "Sally"
-            @user.update(role: 2)
-        elsif params[:user][:role] == "Albert"
-            @user.update(role: 3)
-        else
-            @user.update(role: 1)
-        end
-
-        redirect_to(:root)
-    end
-
-    def new
-        super
-        byebug
-    end
-
-    def reports
-        @user = current_user.id
     end
 
     private
