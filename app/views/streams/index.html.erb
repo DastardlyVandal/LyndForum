@@ -4,15 +4,17 @@
         <h4> No threads. :( </h4>
         <h4> Click <a href="/board/<%= @board_id %>/streams/new">here</a> to start a new one! </h4>
     <% end %>
-    <% @streams.each do |streams| %>
-        <div class="card">
-            <h3><a href="/board/<%= @board_id %>/streams/<%= streams.id %>"><%= streams.title %></a></h3>
-            <div>
-                By: <%= @users.find(streams.user_id).name %></br>
-                Posted <%= time_ago_in_words(streams.created_at) %> ago
+    <div class="container-fluid">
+        <% @streams.each do |streams| %>
+            <div class="stream_title">
+                <h3><a href="/board/<%= @board_id %>/streams/<%= streams.id %>"><%= streams.title %></a></h3>
+                <div>
+                    By: <%= @users.find(streams.user_id).name %></br>
+                    Posted <%= time_ago_in_words(streams.created_at) %> ago
+                </div>
             </div>
-        </div>
-    <% end %>
+        <% end %>
+</div>
 </div>
 
 <nav class="container navbar-fixed-bottom bot-nav" role="navigation">

@@ -2,7 +2,7 @@
     <h3><span class="glyphicon glyphicon-bullhorn"></span>Announcements</h3>
     <div class="board-announcements post-stream">
         <% @announcements.each do |announcements| %>
-        <div class="card">
+        <div class="col-lg-12">
             <a href="/announcements/<%= announcements.id.to_s %>"><h4><%= announcements.title %></h4></a>
             <div>Made: <%= time_ago_in_words(announcements.created_at) %> ago</div>
         </div>
@@ -11,12 +11,28 @@
 </div>
 <div class="container">
     <h3><span class="glyphicon glyphicon-th-list"></span>Forum</h3>
-    <% @boards.each do |board| %>
-            <h3><a href="/board/<%= board.id %>/streams/"><%= board.name %></a></h3>
-            <p>Threads: <%= board.streams.length %></p>
-    <% end %>
-</div>
 
+    <div class="container-fluid">
+        <% @boards.each do |board| %>
+                <div class="col-md-4">
+                    <h3><a href="/board/<%= board.id %>/streams/"><%= board.name %></a></h3>
+                    <p>Threads: <%= board.streams.length %></p>
+                </div>
+        <% end %>
+    </div>
+</div>
+<div class="container">
+    <h3><span class="glyphicon glyphicon-fire"></span>Recent Threads</h3>
+
+    <div class="container-fluid">
+        <% @boards.each do |board| %>
+                <div class="col-md-4">
+                    <h3><a href="/board/<%= board.id %>/streams/"><%= board.name %></a></h3>
+                    <p>Threads: <%= board.streams.length %></p>
+                </div>
+        <% end %>
+    </div>
+</div>
 
 <div class="container container-fluid navbar-fixed-bottom bot-nav">
     <ul class="nav navbar-nav navbar-right">

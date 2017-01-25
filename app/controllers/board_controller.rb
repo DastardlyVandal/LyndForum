@@ -8,7 +8,8 @@ class BoardController < ApplicationController
       end
 
       new_board = Board.create(name: params[:name])
-      redirect_to board_path + '/' + new_board.id.to_s + '/streams/'
+      byebug
+      redirect_to '/board/' + new_board.id.to_s + '/streams/'
   end
 
 
