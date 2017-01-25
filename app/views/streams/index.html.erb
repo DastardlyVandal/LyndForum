@@ -4,7 +4,7 @@
         <h4> No threads. :( </h4>
         <h4> Click <a href="/board/<%= @board_id %>/streams/new">here</a> to start a new one! </h4>
     <% end %>
-    <div class="container-fluid">
+        <div class="container-fluid">
         <% @streams.each do |streams| %>
             <div class="stream_title">
                 <h3><a href="/board/<%= @board_id %>/streams/<%= streams.id %>"><%= streams.title %></a></h3>
@@ -14,7 +14,13 @@
                 </div>
             </div>
         <% end %>
-</div>
+    </div>
+    <div class="page">
+        <%= will_paginate @streams, inner_window: 2, outer_window: 2 %>
+        <div>
+            <%= page_entries_info @posts %>
+        </div>
+    </div>
 </div>
 
 <nav class="container navbar-fixed-bottom bot-nav" role="navigation">

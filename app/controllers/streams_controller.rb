@@ -38,7 +38,16 @@ class StreamsController < ApplicationController
 
   def index
     if Board.find_by_id(params[:board_id]).present?
-        @streams = Stream.where(board_id: params[:board_id]).each.sort_by{|stream| stream.updated_at}.reverse
+        if params[:page].present?
+            _page = params[:page]
+        else
+            _page = 1
+        end
+
+#        @streams = Stream.where(board_id: params[:board_id]).each.sort_by{|stream| stream.updated_at}.reverse
+        @streams = Stream.where(board_id: params[:board_id])
+        @streams = @streams.order(updated_at: :desc)
+        @streams = @streams.paginate(page: _page, per_page: 7)
         @board_name = Board.find(params[:board_id].to_i).name
         @board_id = params[:board_id]
         @users = User.all

@@ -59,10 +59,10 @@
             <% end %>
         </div>
         <div>
-            <div class="page_info">
+            <%= will_paginate @posts, inner_window: 2, outer_window: 2 %>
+            <div>
                 <%= page_entries_info @posts %>
             </div>
-            <%= will_paginate @posts, inner_window: 2, outer_window: 2 %>
         </div>
     </div>
 

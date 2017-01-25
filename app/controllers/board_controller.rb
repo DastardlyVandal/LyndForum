@@ -8,7 +8,6 @@ class BoardController < ApplicationController
       end
 
       new_board = Board.create(name: params[:name])
-      byebug
       redirect_to '/board/' + new_board.id.to_s + '/streams/'
   end
 
