@@ -25,10 +25,10 @@
     <h3><span class="glyphicon glyphicon-fire"></span>Recent Threads</h3>
 
     <div class="container-fluid">
-        <% @boards.each do |board| %>
+        <% @hot_threads.each do |thread| %>
                 <div class="col-md-4">
-                    <h3><a href="/board/<%= board.id %>/streams/"><%= board.name %></a></h3>
-                    <p>Threads: <%= board.streams.length %></p>
+                    <h3><a href="/board/<%= thread.board_id %>/streams/<%= thread.id %>"><%= thread.title %></a></h3>
+                    <p>Board: <%= Board.find_by_id(thread.board_id).name %> </p>
                 </div>
         <% end %>
     </div>
