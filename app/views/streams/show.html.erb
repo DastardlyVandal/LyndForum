@@ -70,10 +70,11 @@
                                     <a class="delete-post" id="<%= posts.id.to_s %>" ><span class="glyphicon glyphicon-trash"></span>Delete post</a>
                             </div>
                         <% end %>
+                        <div class="col-md-12">
+                            <a href="/board/:/streams/:/post/<%= posts.id.to_s%>/report"><span class="glyphicon glyphicon-edit"></span>Report</a>
+                        </div>
                     <% end %>
-                    <div class="col-md-12">
-                        <a href="/board/:/streams/:/post/<%= posts.id.to_s%>/report"><span class="glyphicon glyphicon-edit"></span>Report</a>
-                    </div>
+
                 </div>
             <% end %>
         </div>
