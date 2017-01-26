@@ -18,6 +18,11 @@
                 <div class="col-md-4 board-title">
                     <h3><a href="/board/<%= board.id %>/streams/"><%= board.name %></a></h3>
                     <p>Threads: <%= board.streams.length %></p>
+                    <% if user_signed_in? %>
+                        <% if current_user.role == 0 or current_user.role == 1 %>
+                            <p><a href="/board/<%= board.id %>/moderation/">View Moderation log</a></p>
+                        <% end %>
+                    <% end %>
                 </div>
         <% end %>
     </div>

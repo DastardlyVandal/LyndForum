@@ -34,4 +34,25 @@ class BoardController < ApplicationController
       @announcements = Announcement.all.reverse_order
   end
 
+  def moderation
+      validate_user
+      unless current_user.role == 0 or current_user.role == 1
+          flash[:notice] = "You are not authorized to perform this action"
+          redirect_to('/board/')
+      end
+
+      if params[:page].present?
+          _page = params[:page]
+      else
+          _page = 1
+      end
+      @posts = Post.where(board_id: params[:board_id], reported: true)
+      @posts = @posts.paginate(page: _page, per_page: 10)
+      @streams = Stream.all
+      @users = User.all
+
+      flash[:notice] = "Moderation queue for " + Board.find_by_id(params[:board_id]).name
+
+  end
+
 end

@@ -11,7 +11,7 @@ class StreamsController < ApplicationController
               if params[:content].length <= 10000
                   content = params[:content]
                   new_stream = Stream.create(board_id: params[:board_id], user_id: current_user.id, title: params[:title])
-                  current_user.posts.create(stream_id: new_stream.id, content: content)
+                  current_user.posts.create(board_id: params[:board_id], stream_id: new_stream.id, content: content)
 
                   redirect_to board_streams_path + '/' + new_stream.id.to_s
               else

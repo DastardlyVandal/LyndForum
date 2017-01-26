@@ -27,11 +27,14 @@ ActiveRecord::Schema.define(version: 5) do
   end
 
   create_table "posts", force: :cascade do |t|
+    t.integer  "board_id"
     t.integer  "stream_id"
     t.integer  "user_id"
     t.string   "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "reported",      default: false
+    t.string   "report_reason", default: ""
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "streams", force: :cascade do |t|

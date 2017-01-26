@@ -1,0 +1,22 @@
+<div class="container">
+    <h1>Report Post</h1>
+    <%= form_for @post, url: { :action => "report_post", } do |f| %>
+        <div class="field">
+            <h4><a href="/users/<%= @user.id %>"><%= @user.name %></a></h4>
+            <div class="post-content">
+                <p><%= markdown(@post.content) %></p>
+            </div>
+            <%= f.label 'Reason: ' %></br>
+            <%= f.select :report_reason, [['Breaking Rule 1'], ['Breaking Rule 2']], {include_blank: true} %>
+        </div>
+        <div class="action">
+            <%= f.submit 'Submit Report' %>
+        </div>
+    <% end %>
+</div>
+
+<div class="container container-fluid navbar-fixed-bottom bot-nav">
+    <ul class="nav navbar-nav navbar-left">
+        <li><a href="/board/<%= @board_id %>/streams/<%= @stream_id %>"><span class="glyphicon glyphicon-step-backward"></span>Back to Thread</a></li>
+    </ul>
+</div>

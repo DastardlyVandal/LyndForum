@@ -24,6 +24,9 @@ Rails.application.routes.draw do
   post '/board/:board_id/streams/delete', to: 'streams#delete'
   post '/board/:board_id/streams/:stream_id/post/delete', to: 'post#delete'
   post '/users/makeMod', to: 'users#make_mod'
+  get '/board/:board_id/moderation', to: 'board#moderation'
+  get '/board/:board_id/streams/:streams_id/post/:id/report', to: 'post#report'
+  patch '/board/:board_id/streams/:streams_id/post/:id/report', to: 'post#report_post'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

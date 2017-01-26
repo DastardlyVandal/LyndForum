@@ -3,7 +3,7 @@ class PostController < ApplicationController
     def create
         validate_user
         if params[:post][:content].length <= 2000
-            current_user.posts.create(stream_id: params[:stream_id].to_i, content: params[:post][:content])
+            current_user.posts.create(board_id: params[:board_id], stream_id: params[:stream_id].to_i, content: params[:post][:content])
             stream = Stream.find_by_id(params[:stream_id]).update( updated_at: Time.now)
             redirect_to board_streams_path + '/' + params[:stream_id]
         else
@@ -55,5 +55,27 @@ class PostController < ApplicationController
            redirect_to :back
         end
     end
+
+    def report_post
+        validate_user
+        if current_user.role == 0 or current_user.role == 1
+            @post = Post.find_by_id(params[:id])
+            @post.update(report_reason: params[:post][:report_reason], reported: true)
+           redirect_to('/board/' + @post.board_id.to_s + '/streams/' + @post.stream_id.to_s)
+       else
+           flash[:notice] = "You are not permitted to perform this action."
+           redirect_to ('/board/')
+       end
+
+
+    end
+
+    def report
+        @post = Post.find_by_id(params[:id])
+        @user = User.find_by_id(@post.user_id)
+        @board_id = @post.board_id
+        @stream_id = @post.stream_id
+    end
+
 
 end

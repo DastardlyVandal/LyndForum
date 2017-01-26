@@ -50,6 +50,8 @@
                             <h4>
                                 <a href="/users/<%= User.find(posts.user_id).id %>"><%= User.find(posts.user_id).name %></a>
                             </h4>
+
+
                     </div>
 
                     <div class="post-content col-md-10">
@@ -63,12 +65,15 @@
                         <% if current_user.role == 0 or current_user.role == 1 %>
                             <div class="admin-tools hidden">
                                 <% if current_user.role == 0 %>
-                                    <a href=":/post/<%= posts.id.to_s%>/edit"><span class="glyphicon glyphicon-edit"></span>Edit post</a>
+                                    <a href="/board/:/streams/:/post/<%= posts.id.to_s%>/edit"><span class="glyphicon glyphicon-edit"></span>Edit post</a>
                                 <% end %>
                                     <a class="delete-post" id="<%= posts.id.to_s %>" ><span class="glyphicon glyphicon-trash"></span>Delete post</a>
                             </div>
                         <% end %>
                     <% end %>
+                    <div class="col-md-12">
+                        <a href="/board/:/streams/:/post/<%= posts.id.to_s%>/report"><span class="glyphicon glyphicon-edit"></span>Report</a>
+                    </div>
                 </div>
             <% end %>
         </div>

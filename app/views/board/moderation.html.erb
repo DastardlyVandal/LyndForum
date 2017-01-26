@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="post-stream col-md-12">
+        <% if @posts.length == 0 %>
+            <h3> Moderation queue for this board is empty. </h3>
+        <% else %>
+            <% @posts.each do |posts| %>
+                <div class="row card">
+
+                    <div class="col-md-1">
+                        <h4>
+                            <a href="/users/<%= @users.find(posts.user_id).id %>"><%= @users.find(posts.user_id).name %></a>
+                        </h4>
+                    </div>
+
+                    <div class="col-md-11">
+                        <h4>
+                            <a href="/board/<%= @streams.find(posts.stream_id).board_id.to_s%>/streams/<%= @streams.find(posts.stream_id).id.to_s%>#<%=posts.id %>">Thread: <%= @streams.find(posts.stream_id).title %></a>
+                        </h4>
+                        <div class="post-content col-md-9">
+                            <p><%= markdown(posts.content) %></p>
+                            <div class="post-footer">Posted <%= time_ago_in_words(posts.created_at) %> ago</div>
+                        </div>
+                        <div class="col-md-2">
+                            <h4><ul>
+                            <% if current_user.role == 0 %>
+                                    <li><a href="/board/:/streams/:/post/<%= posts.id.to_s%>/edit"><span class="glyphicon glyphicon-edit"></span>Edit</a></li>
+                            <% end %>
+                                    <li><a class="delete-post" id="<%= posts.id.to_s %>" href="" ><span class="glyphicon glyphicon-trash"></span>Remove</a></li>
+                            </ul></h4>
+                        </div>
+
+                        <div class="report-content col-md-9">
+                            <p>Reason: <%= posts.report_reason %></p>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+            <% end %>
+        <% end %>
+    </div>
+    <div>
+        <%= will_paginate @posts, inner_window: 2, outer_window: 2 %>
+        <div>
+            <%= page_entries_info @posts %>
+        </div>
+    </div>
+</div>
+
+<div class="container container-fluid navbar-fixed-bottom bot-nav">
+    <ul class="nav navbar-nav navbar-left">
+        <li><a href="/board/"><span class="glyphicon glyphicon-th-list"></span> Return to Boards </a></li>
+    </ul>
+</div>
+
+<script>
+    deletePost();
+</script>
