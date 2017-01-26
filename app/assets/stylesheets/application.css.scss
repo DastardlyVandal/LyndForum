@@ -202,18 +202,11 @@ blockquote {
 }
 
 .card {
-    display: inline-block;
-    width: 98%;
-    margin: 3px;
-    border-radius: 6px;
-    border-style: dotted;
-    border-width: 1px;
-    border-top: none;
-    border-left: none;
-    border-bottom-left-radius: 0px;
-    border-color: $color-primary-0;
-
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    margin-bottom: 3px;
     background-color: $post;
+    z-index: -1;
 }
 
 .stream_title {
@@ -227,10 +220,6 @@ blockquote {
     margin: 0;
 }}
 
-.post-stream {
-    will-change: transform;
-    margin-bottom: 3px;
-}
 
 .post-content {
     background-color: $post-content;
@@ -240,7 +229,7 @@ blockquote {
     border-radius: 3px;
     word-wrap: break-word;
     margin: 6px;
-
+    min-height: 10em;
     // For handling the markdown in posts, so it
     // doesn't make the threads look ugly
     h1, h2, h3, h4 {
@@ -262,7 +251,6 @@ blockquote {
 // See about moving this in with .post-content
 .post-footer {
     text-align: right;
-    background-color: white;
     padding-right: 3px;
 }
 

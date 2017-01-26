@@ -81,10 +81,19 @@ class StreamsController < ApplicationController
     end
   end
 
-  def sticky
-#      byebug
+  def delete
       validate_user
-      if current_user.role == 0
+      if current_user.role == 0 or current_user.role == 1
+         stream = Stream.find_by_id(params[:stream])
+         stream.posts.destroy_all
+         stream.delete
+         redirect_to :back
+      end
+  end
+
+  def sticky
+      validate_user
+      if current_user.role == 0 or current_user.role == 1
           @stream = Stream.find_by_id(params[:stream])
           @sticky = !@stream.is_stickied
           @stream.update(is_stickied: @sticky)

@@ -1,6 +1,6 @@
 function sticky(){
     $('.sticky').click(function(){
-        stream_id = $('.post-stream').attr('id')
+        stream_id = $(this).attr('id')
 
         $.ajax({
             type: "POST",
@@ -10,5 +10,36 @@ function sticky(){
 
             }
         })
+    });
+}
+
+function deleteThread(){
+    $('.delete-thread').click(function(){
+        stream_id = $(this).attr('id')
+
+        $.ajax({
+            type: "POST",
+            url: '/board/:/streams/delete',
+            data: {stream: stream_id},
+            success:{
+
+            }
+        })
+    });
+}
+
+function deletePost(){
+    $('.delete-post').click(function(){
+        post_id = $(this).attr('id');
+
+        $.ajax({
+            type: "POST",
+            url: '/board/:/streams/:/post/delete',
+            data: {post: post_id},
+            success:{
+
+            }
+        })
+
     });
 }

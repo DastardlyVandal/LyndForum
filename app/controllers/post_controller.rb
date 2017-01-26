@@ -48,5 +48,12 @@ class PostController < ApplicationController
         @board_id = Stream.find_by_id(@stream_id).board_id
     end
 
+    def delete
+        validate_user
+        if current_user.role == 0 or current_user.role == 1
+           Post.find_by_id(params[:post]).destroy
+           redirect_to :back
+        end
+    end
 
 end

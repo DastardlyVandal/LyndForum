@@ -2,24 +2,42 @@
     <div class="col-md-2">
         <h2><%= @user.name %></h2>
         <h4>Number of posts:</h4> <p> <%= @user.posts.count %> </p>
-        <h4>Threads Started:</h4> <%= @started_streams %></p>
+        <h4>Threads Started:</h4> <%= @started_streams %>
+        <h4>Role:</h4> <%= @role %>
         <h4> Reputation: </h4>
         <h4>
             <span class="glyphicon glyphicon-thumbs-up"></span><%= @thumbup %>
             <span class="glyphicon glyphicon-thumbs-down"></span><%= @thumbdown %>
         </h4>
+        <% if user_signed_in? %>
+            <% if current_user.role == 0 %>
+                <% if @user.role == 1 %>
+                <div class="button demote-mod"  id="<%= @user.id %>">
+                    <h4><span class="glyphicon glyphicon-tower"></span></h4>
+                    <p>Demote Moderator</p>
+                </div>
+                <% else %>
+                    <div class="button make-mod"  id="<%= @user.id %>">
+                        <h4><span class="glyphicon glyphicon-tower"></span></h4>
+                        <p>Make Moderator</p>
+                    </div>
+                <% end %>
+            <% end %>
+        <% end %>
     </div>
 
     <!-- begin post history -->
     <div class="col-md-9 ">
         <h2> Post History</h2>
-        <div class="post-history">
+        <div class="post-history col-md-12">
             <% @posts.each do |posts| %>
-                <div class="card">
-                    <h4><a href="/board/<%= Stream.find(posts.stream_id).board_id.to_s%>/streams/<%= Stream.find(posts.stream_id).id.to_s%>#<%=posts.id %>">
-                        <%= Stream.find(posts.stream_id).title %>
-                    </a></h4>
-                    <div class="post-content col-md-9">
+                <div class="row card">
+                    <div class="col-md-9">
+                        <h4><a href="/board/<%= Stream.find(posts.stream_id).board_id.to_s%>/streams/<%= Stream.find(posts.stream_id).id.to_s%>#<%=posts.id %>">
+                            <%= Stream.find(posts.stream_id).title %>
+                        </a></h4>
+                    </div>
+                    <div class="post-content col-lg-9">
                         <p><%= markdown(posts.content) %></p>
                         <div class="post-footer">Posted <%= time_ago_in_words(posts.created_at) %> ago</div>
                     </div>
@@ -29,3 +47,11 @@
     </div>
     <!-- end post history -->
 </div>
+
+<% if user_signed_in? %>
+    <% if current_user.role == 0 %>
+        <script>
+            addMod();
+        </script>
+    <% end %>
+<% end %>

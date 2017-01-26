@@ -1,12 +1,10 @@
 function vote(){
     $('.vote-up').click(function(){
-        post_id = $(this).parent().parent().parent().attr('id');
-        stream_id = $(this).parent().parent().parent().parent().attr('id')
-        board_id = $(this).parent().parent().parent().parent().parent().attr('id')
+        post_id = $(this).attr('id');
         $.ajax({
             type: "POST",
-            url: '/board/' + board_id + '/streams/' + stream_id + '/post/' + post_id + '/votes/create',
-            data: {vote: 1},
+            url: '/board/:/streams/:/post/:/votes/create',
+            data: {vote: 1, post: post_id},
             success:{
 
             }
@@ -16,13 +14,11 @@ function vote(){
 
 
     $('.vote-down').click(function(){
-        post_id = $(this).parent().parent().parent().attr('id');
-        stream_id = $(this).parent().parent().parent().parent().attr('id')
-        board_id = $(this).parent().parent().parent().parent().parent().attr('id')
+        post_id = $(this).attr('id');
         $.ajax({
             type: "POST",
-            url: '/board/' + board_id + '/streams/' + stream_id + '/post/' + post_id + '/votes/create',
-            data: {vote: -1},
+            url: '/board/:/streams/:/post/:/votes/create',
+            data: {vote: -1, post: post_id},
             success:{
 
             }

@@ -1,22 +1,25 @@
 <div>
-    <div class="container" id="<%= @board_id %>">
+    <div class="container">
         <% if @stream_stickied == true %>
-            <h2><span class="sticky glyphicon glyphicon-paperclip"></span></h2>
+            <h2><span class="sticky glyphicon glyphicon-paperclip" id="<%= @stream_id %>" ></span></h2>
         <% end %>
         <h1>
             <%= @stream_title %>
         </h1>
                 <% if user_signed_in? %>
-                    <% if current_user.role == 0 and @stream_stickied == false %>
-                        <a class=" sticky admin-tools hidden"><span class="glyphicon glyphicon-paperclip"></span>Sticky Post</a>
+                    <% if current_user.role == 0 or current_user.role == 1 %>
+                        <a class="admin-tools hidden delete-thread" id="<%= @stream_id %>"><span class="glyphicon glyphicon-trash"></span>Remove Thread</a>
+                        <% if  @stream_stickied == false %>
+                            <a class="sticky admin-tools hidden" id="<%= @stream_id %>"><span class="glyphicon glyphicon-paperclip"></span>Sticky Post
+                        <% end %>
                     <% end %>
                 <% end %>
         <div>
             Posted by: <%= @users.find(@streams.find(params[:id]).user_id).name %>
         </div>
-        <div class="post-stream " id="<%= @stream_id %>">
+        <div class="post-stream col-md-12">
             <% @posts.each do |posts| %>
-                <div class="card" id="<%= posts.id %>">
+                <div class="row card">
                     <div class="col-md-1">
                         <h3>
                             <% if user_signed_in? # TODO: clean this%>
@@ -27,14 +30,14 @@
                                     <% if @votes.where(post_id: posts.id, user_id: current_user.id).present? %>
                                         <% if @votes.where(post_id: posts.id, user_id: current_user.id).pluck(:vote) == [1] %>
                                             <span class="glyphicon glyphicon-thumbs-up voted"></span>
-                                            <span class="glyphicon glyphicon-thumbs-down"></span>
+                                            <span class="glyphicon glyphicon-thumbs-down vote-down" id="<%= posts.id %>"></span>
                                         <% else %>
-                                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                                            <span class="glyphicon glyphicon-thumbs-up vote-up" id="<%= posts.id %>"></span>
                                             <span class="glyphicon glyphicon-thumbs-down voted"></span>
                                         <% end %>
                                     <% else %>
-                                        <span class="glyphicon glyphicon-thumbs-up vote-up"></span>
-                                        <span class="glyphicon glyphicon-thumbs-down vote-down"></span>
+                                        <span class="glyphicon glyphicon-thumbs-up vote-up"  id="<%= posts.id %>"></span>
+                                        <span class="glyphicon glyphicon-thumbs-down vote-down"  id="<%= posts.id %>"></span>
                                     <% end %>
                                 <% end %>
                             <% else %>
@@ -44,24 +47,25 @@
                         </h3>
 
                         <p>Votes: <%= posts.votes.count %></p>
+                            <h4>
+                                <a href="/users/<%= User.find(posts.user_id).id %>"><%= User.find(posts.user_id).name %></a>
+                            </h4>
                     </div>
 
-                    <div class="post-content col-md-9">
+                    <div class="post-content col-md-10">
                         <p><%= markdown(posts.content) %></p>
-                        <div class="post-footer">
-                            Posted <%= time_ago_in_words(posts.created_at) %> ago
-                        </div>
+
                     </div>
-                    <div class="col-md-2">
-                        <h4>
-                            <a href="/users/<%= User.find(posts.user_id).id %>"><%= User.find(posts.user_id).name %></a>
-                        </h4>
+                    <div class="col-md-12 post-footer">
+                        Posted <%= time_ago_in_words(posts.created_at) %> ago
                     </div>
                     <% if user_signed_in? %>
-                        <% if current_user.role == 0 %>
+                        <% if current_user.role == 0 or current_user.role == 1 %>
                             <div class="admin-tools hidden">
+                                <% if current_user.role == 0 %>
                                     <a href=":/post/<%= posts.id.to_s%>/edit"><span class="glyphicon glyphicon-edit"></span>Edit post</a>
-                                    <a href=":/post/<%= posts.id.to_s%>/delete"><span class="glyphicon glyphicon-trash"></span>Delete post</a>
+                                <% end %>
+                                    <a class="delete-post" id="<%= posts.id.to_s %>" ><span class="glyphicon glyphicon-trash"></span>Delete post</a>
                             </div>
                         <% end %>
                     <% end %>
@@ -82,7 +86,7 @@
     		</ul>
             <ul class="nav navbar-nav navbar-right">
             <% if user_signed_in? %>
-                <% if current_user.role == 0 %>
+                <% if current_user.role == 0 or current_user.role == 1 %>
                     <li class="admin-controls admin-button"><a><span class="glyphicon glyphicon-wrench"></span></a></li>
                 <% end %>
             <% end %>
@@ -97,8 +101,10 @@
 <script>
     vote();
     <% if user_signed_in? %>
-        <% if current_user.role == 0 %>
+        <% if current_user.role == 0 or current_user.role == 1 %>
             sticky();
+            deleteThread();
+            deletePost();
         <% end %>
     <% end %>
 </script>
