@@ -2,7 +2,7 @@
     <h1><%= @board_name %> </h1>
 </div>
 <div class="container ">
-    <h4><a href="/board/<%= @board_id %>/rules/">Board Rules</h4>
+    <h4><a href="/board/<%= @board_id %>/rules/">Board Rules</a></h4>
     <% unless @streams.any? %>
         <h4> No threads. :( </h4>
         <h4> Click <a href="/board/<%= @board_id %>/streams/new">here</a> to start a new one! </h4>
