@@ -42,3 +42,35 @@ function hideTopNav(){
          }
          });
 }
+
+function deletePost(){
+    $('.delete-post').click(function(){
+        post_id = $(this).attr('id');
+
+        $.ajax({
+            type: "POST",
+            url: '/board/:/streams/:/post/delete',
+            data: {post: post_id},
+            success:{
+
+            }
+        })
+
+    });
+}
+
+function ignoreReport(){
+    $('.ignore-report').click(function(){
+        post_id = $(this).attr('id');
+
+        $.ajax({
+            type: "POST",
+            url: '/board/:/streams/:/post/ignore',
+            data: {post: post_id},
+            success:{
+
+            }
+        })
+
+    });
+}

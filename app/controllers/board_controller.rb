@@ -50,8 +50,8 @@ class BoardController < ApplicationController
       @posts = @posts.paginate(page: _page, per_page: 10)
       @streams = Stream.all
       @users = User.all
+      @board_name = Board.find_by_id(params[:board_id]).name
 
-      flash[:notice] = "Moderation queue for " + Board.find_by_id(params[:board_id]).name
 
   end
 

@@ -1,0 +1,21 @@
+<div class="container">
+    <h1> Rules for <%= @board.name %> </h1>
+</div>
+
+<div class="container">
+    <ul>
+        <% @rules.each do |r| %>
+        <div class="col-md-12">
+            <div class="rules">
+                <h3><li><%= r.rule %></li></h3>
+            </div>
+        </div>
+        <% end %>
+    </ul>
+</div>
+
+<div class="container container-fluid navbar-fixed-bottom bot-nav">
+    <ul class="nav navbar-nav navbar-left">
+        <li><a href="/board/"/><span class="glyphicon glyphicon-step-backward"></span> Return to Boards</a></li>
+    </ul>
+</div>

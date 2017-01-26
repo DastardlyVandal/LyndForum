@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 5) do
+ActiveRecord::Schema.define(version: 6) do
 
   create_table "announcements", force: :cascade do |t|
     t.string   "title"
@@ -31,10 +31,17 @@ ActiveRecord::Schema.define(version: 5) do
     t.integer  "stream_id"
     t.integer  "user_id"
     t.string   "content"
-    t.boolean  "reported",      default: false
-    t.string   "report_reason", default: ""
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.boolean  "reported",   default: false
+    t.string   "rule",       default: ""
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  create_table "rules", force: :cascade do |t|
+    t.integer  "board_id"
+    t.string   "rule"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "streams", force: :cascade do |t|

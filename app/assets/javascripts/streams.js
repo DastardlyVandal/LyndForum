@@ -27,19 +27,3 @@ function deleteThread(){
         })
     });
 }
-
-function deletePost(){
-    $('.delete-post').click(function(){
-        post_id = $(this).attr('id');
-
-        $.ajax({
-            type: "POST",
-            url: '/board/:/streams/:/post/delete',
-            data: {post: post_id},
-            success:{
-
-            }
-        })
-
-    });
-}

@@ -7,7 +7,7 @@
                 <p><%= markdown(@post.content) %></p>
             </div>
             <%= f.label 'Reason: ' %></br>
-            <%= f.select :report_reason, [['Breaking Rule 1'], ['Breaking Rule 2']], {include_blank: true} %>
+            <%= f.select :rule, @rules, {include_blank: false} %>
         </div>
         <div class="action">
             <%= f.submit 'Submit Report' %>

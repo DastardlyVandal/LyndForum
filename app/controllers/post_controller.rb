@@ -56,11 +56,19 @@ class PostController < ApplicationController
         end
     end
 
+    def ignore
+        validate_user
+        if current_user.role == 0 or current_user.role == 1
+           Post.find_by_id(params[:post]).update(reported: false)
+           redirect_to :back
+        end
+    end
+
     def report_post
         validate_user
         if current_user.role == 0 or current_user.role == 1
             @post = Post.find_by_id(params[:id])
-            @post.update(report_reason: params[:post][:report_reason], reported: true)
+            @post.update(rule: params[:post][:rule], reported: true)
            redirect_to('/board/' + @post.board_id.to_s + '/streams/' + @post.stream_id.to_s)
        else
            flash[:notice] = "You are not permitted to perform this action."
@@ -75,6 +83,7 @@ class PostController < ApplicationController
         @user = User.find_by_id(@post.user_id)
         @board_id = @post.board_id
         @stream_id = @post.stream_id
+        @rules = Rule.where(board_id: @post.board_id).pluck(:rule)
     end
 
 

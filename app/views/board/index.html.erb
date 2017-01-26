@@ -21,8 +21,12 @@
                     <% if user_signed_in? %>
                         <% if current_user.role == 0 or current_user.role == 1 %>
                             <p><a href="/board/<%= board.id %>/moderation/">View Moderation log</a></p>
+                            <% if current_user.role == 0 %>
+                                <p><a href="/board/<%= board.id %>/rules/new">Add Rule</a></p>
+                            <% end %>
                         <% end %>
                     <% end %>
+                    <p><a href="/board/<%= board.id %>/rules/">View Rules</a></p>
                 </div>
         <% end %>
     </div>

@@ -1,0 +1,19 @@
+<div class="container">
+    <h1>Add new rule for <%= @board.name %></h1>
+    <%= form_tag ('/board/'+@board.id.to_s+'/rules/'), url: { :action => "create", } do %>
+        <div class="field">
+            <%= label_tag 'New Rule: ' %></br>
+            <%= text_field_tag :reason, nil, :required => true, size: 100, maxlength: 100 %></br>
+        </div>
+        <div class="action">
+            <%= submit_tag 'Add rule to '+@board.name %>
+        </div>
+    <% end %>
+
+</div>
+
+<div class="container container-fluid navbar-fixed-bottom bot-nav">
+    <ul class="nav navbar-nav navbar-left">
+        <li><a href="/board/"/><span class="glyphicon glyphicon-step-backward"></span> Return to Boards</a></li>
+    </ul>
+</div>
