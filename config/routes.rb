@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get '/board/:board_id/streams/:streams_id/post/:id/edit', to: 'post#edit'
   post '/board/:board_id/streams/:stream_id/post/:post_id/votes/create', to: 'votes#create'
   post '/board/:board_id/streams/sticky', to: 'streams#sticky'
+  post '/board/:board_id/streams/lock', to: 'streams#lock'
   post '/board/:board_id/streams/delete', to: 'streams#delete'
   post '/board/:board_id/streams/:stream_id/post/delete', to: 'post#delete'
   post '/board/:board_id/streams/:stream_id/post/ignore', to: 'post#ignore'

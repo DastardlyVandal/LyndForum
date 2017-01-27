@@ -70,7 +70,9 @@ class StreamsController < ApplicationController
         @board_name = Board.find(params[:board_id].to_i).name
         @board_id = params[:board_id]
         @stream_id = params[:id]
-        @stream_stickied = Stream.find(@stream_id).is_stickied?
+        @stream = Stream.find(@stream_id)
+        @stream_stickied = @stream.is_stickied?
+        @stream_locked = @stream.locked?
         @post = Post.new
         @users = User.all
         @streams = Stream.all
@@ -97,6 +99,16 @@ class StreamsController < ApplicationController
           @stream = Stream.find_by_id(params[:stream])
           @sticky = !@stream.is_stickied
           @stream.update(is_stickied: @sticky)
+          redirect_to :back
+      end
+  end
+
+  def lock
+      validate_user
+      if current_user.role == 0 or current_user.role == 1
+          @stream = Stream.find_by_id(params[:stream])
+          @lock = !@stream.locked
+          @stream.update(locked: @lock)
           redirect_to :back
       end
   end

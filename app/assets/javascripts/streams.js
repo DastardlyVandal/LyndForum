@@ -13,6 +13,21 @@ function sticky(){
     });
 }
 
+function lock(){
+    $('.lock').click(function(){
+        stream_id = $(this).attr('id')
+
+        $.ajax({
+            type: "POST",
+            url: '/board/:/streams/lock',
+            data: {stream: stream_id},
+            success:{
+
+            }
+        })
+    });
+}
+
 function deleteThread(){
     $('.delete-thread').click(function(){
         stream_id = $(this).attr('id')

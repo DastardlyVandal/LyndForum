@@ -2,13 +2,19 @@ class PostController < ApplicationController
 
     def create
         validate_user
-        if params[:post][:content].length <= 2000
-            current_user.posts.create(board_id: params[:board_id], stream_id: params[:stream_id].to_i, content: params[:post][:content])
-            stream = Stream.find_by_id(params[:stream_id]).update( updated_at: Time.now)
+        @stream = Stream.find_by_id(params[:stream_id])
+        if @stream.locked?
+            flash[:notice] = "Thread is locked."
             redirect_to board_streams_path + '/' + params[:stream_id]
         else
-            flash[:notice] = "Comment is too long."
-            redirect_to(:back)
+            if params[:post][:content].length <= 2000
+                current_user.posts.create(board_id: params[:board_id], stream_id: params[:stream_id].to_i, content: params[:post][:content])
+                stream = Stream.find_by_id(params[:stream_id]).update( updated_at: Time.now)
+                redirect_to board_streams_path + '/' + params[:stream_id]
+            else
+                flash[:notice] = "Comment is too long."
+                redirect_to(:back)
+            end
         end
     end
 

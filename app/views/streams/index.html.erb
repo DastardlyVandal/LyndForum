@@ -14,6 +14,9 @@
                     <% if streams.is_stickied? %>
                         <span class="sticky glyphicon glyphicon-paperclip"></span>
                     <% end %>
+                    <% if streams.locked? %>
+                        <span class="lock glyphicon glyphicon-lock"></span>
+                    <% end %>
                     <a href="/board/<%= @board_id %>/streams/<%= streams.id %>"><%= streams.title %></a>
                 </h3>
 

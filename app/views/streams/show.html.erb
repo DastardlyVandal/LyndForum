@@ -1,7 +1,10 @@
 <div>
     <div class="container">
         <% if @stream_stickied == true %>
-            <h2><span class="sticky glyphicon glyphicon-paperclip" id="<%= @stream_id %>" ></span></h2>
+            <h2><span class="stream_status ticky glyphicon glyphicon-paperclip" id="<%= @stream_id %>" ></span></h2>
+        <% end %>
+        <% if @stream_locked == true %>
+            <h2><span class="stream_status lock glyphicon glyphicon-lock" id="<%= @stream_id %>" ></span></h2>
         <% end %>
         <h1>
             <%= @stream_title %>
@@ -10,8 +13,9 @@
                     <% if current_user.role == 0 or current_user.role == 1 %>
                         <a class="admin-tools hidden delete-thread" id="<%= @stream_id %>"><span class="glyphicon glyphicon-trash"></span>Remove Thread</a>
                         <% if  @stream_stickied == false %>
-                            <a class="sticky admin-tools hidden" id="<%= @stream_id %>"><span class="glyphicon glyphicon-paperclip"></span>Sticky Post
+                            <a class="sticky admin-tools hidden" id="<%= @stream_id %>"><span class="glyphicon glyphicon-paperclip"></span>Sticky Thread
                         <% end %>
+                        <a class="lock admin-tools hidden" id="<%= @stream_id %>"><span class="glyphicon glyphicon-lock"></span>Lock Thread
                     <% end %>
                 <% end %>
         <div>
@@ -109,6 +113,7 @@
     <% if user_signed_in? %>
         <% if current_user.role == 0 or current_user.role == 1 %>
             sticky();
+            lock();
             deleteThread();
             deletePost();
         <% end %>
