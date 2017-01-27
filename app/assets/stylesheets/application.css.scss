@@ -299,10 +299,7 @@ blockquote {
 }
 
 .board-title {
-    border:3px solid $container-color; // 1px solid black;
-    //border-right: 3px solid $container-color;
-
-//    margin: 1px;
+    border:3px solid $container-color;
     background-color: $post;
 }
 
@@ -327,7 +324,7 @@ blockquote {
 }
 
 .admin-tools {
-    float: left;
+//    float: left;
     width: 100%;
 }
 
@@ -369,4 +366,9 @@ blockquote {
     li {
         list-style: decimal;
     }
+}
+.board_status {
+    float:right;
+    padding: 12px;
+    padding-right: 0;
 }

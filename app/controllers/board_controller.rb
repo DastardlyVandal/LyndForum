@@ -56,4 +56,25 @@ class BoardController < ApplicationController
 
   end
 
+  def lock
+      if validate_user == true
+          if validate_admin == true
+              @board = Board.find_by_id(params[:board])
+              @lock = !@board.locked
+              @board.update(locked: @lock)
+              redirect_to :back
+          end
+      end
+  end
+
+  def delete
+      if validate_user == true
+          if validate_admin == true
+              @board = Board.find_by_id(params[:board])
+              @board.destroy
+              redirect_to :back
+          end
+      end
+  end
+
 end

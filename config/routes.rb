@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get '/board/:board_id/moderation', to: 'board#moderation'
   get '/board/:board_id/streams/:streams_id/post/:id/report', to: 'post#report'
   patch '/board/:board_id/streams/:streams_id/post/:id/report', to: 'post#report_post'
-
+  post 'board/lock', to: 'board#lock'
+  post 'board/delete', to: 'board#delete'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
