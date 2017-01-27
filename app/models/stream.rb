@@ -1,4 +1,5 @@
 class Stream < ApplicationRecord
     belongs_to :board
-    has_many :posts
+    belongs_to :user
+    has_many :posts, dependent: :destroy
 end

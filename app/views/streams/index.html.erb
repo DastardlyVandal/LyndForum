@@ -1,23 +1,23 @@
 <div class="container">
-    <h1><%= @board_name %> </h1>
+    <h1><%= @board.name %> </h1>
 </div>
 <div class="container ">
-    <h4><a href="/board/<%= @board_id %>/rules/">Board Rules</a></h4>
+    <h4><a href="/board/<%= @board.id %>/rules/">Board Rules</a></h4>
     <% unless @streams.any? %>
         <h4> No threads. :( </h4>
-        <h4> Click <a href="/board/<%= @board_id %>/streams/new">here</a> to start a new one! </h4>
+        <h4> Click <a href="/board/<%= @board.id %>/streams/new">here</a> to start a new one! </h4>
     <% end %>
         <div class="container-fluid">
         <% @streams.each do |streams| %>
             <div class="stream_title">
                 <h3>
                     <% if streams.is_stickied? %>
-                        <span class="sticky glyphicon glyphicon-paperclip"></span>
+                        <span class="stream_status ticky glyphicon glyphicon-paperclip"></span>
                     <% end %>
                     <% if streams.locked? %>
-                        <span class="lock glyphicon glyphicon-lock"></span>
+                        <span class="stream_status lock glyphicon glyphicon-lock"></span>
                     <% end %>
-                    <a href="/board/<%= @board_id %>/streams/<%= streams.id %>"><%= streams.title %></a>
+                    <a href="/board/<%= @board.id %>/streams/<%= streams.id %>"><%= streams.title %></a>
                 </h3>
 
                 <div>
@@ -41,6 +41,6 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li class="hidden-md hidden-lg"><a href="/board/"/><span class="glyphicon glyphicon-step-backward"></span> Back to Boards</a></li>
-            <li><a href="/board/<%= @board_id %>/streams/new"><span class="glyphicon glyphicon-edit"></span>New Thread</a></li>
+            <li><a href="/board/<%= @board.id %>/streams/new"><span class="glyphicon glyphicon-edit"></span>New Thread</a></li>
         </ul>
 </nav>

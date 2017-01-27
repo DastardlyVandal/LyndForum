@@ -19,9 +19,9 @@
                     <h3><a href="/board/<%= board.id %>/streams/"><%= board.name %></a></h3>
                     <p>Threads: <%= board.streams.length %></p>
                     <% if user_signed_in? %>
-                        <% if current_user.role == 0 or current_user.role == 1 %>
+                        <% if validate_mod %>
                             <p><a href="/board/<%= board.id %>/moderation/">View Moderation log</a></p>
-                            <% if current_user.role == 0 %>
+                            <% if validate_admin %>
                                 <p><a href="/board/<%= board.id %>/rules/new">Add Rule</a></p>
                             <% end %>
                         <% end %>
@@ -47,7 +47,7 @@
 <div class="container container-fluid navbar-fixed-bottom bot-nav">
     <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
-            <% if current_user.role == 0 %>
+            <% if validate_admin %>
                 <li><a href="/announcements/new"/>New Announcement<span class="glyphicon glyphicon-edit"></span></a></li>
                 <li><a href="/board/new">New Board<span class="glyphicon glyphicon-plus"></span></a></li>
             <% end %>

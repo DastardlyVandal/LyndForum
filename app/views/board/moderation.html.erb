@@ -27,7 +27,7 @@
                         </div>
                         <div class="col-md-2">
                             <h4><ul>
-                            <% if current_user.role == 0 %>
+                            <% if validate_admin %>
                                     <li><a href="/board/:/streams/:/post/<%= posts.id.to_s%>/edit"><span class="glyphicon glyphicon-edit"></span>Edit</a></li>
                             <% end %>
                                     <li><a class="delete-post" id="<%= posts.id.to_s %>" href="" ><span class="glyphicon glyphicon-trash"></span>Delete</a></li>

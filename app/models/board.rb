@@ -1,4 +1,4 @@
 class Board < ApplicationRecord
 
-    has_many :streams
+    has_many :streams, dependent: :destroy
 end

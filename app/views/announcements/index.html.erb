@@ -18,7 +18,7 @@
 <div class="container container-fluid navbar-fixed-bottom bot-nav">
     <ul class="nav navbar-nav navbar-right">
         <li><a href="/board/"/><span class="glyphicon glyphicon-th-list"></span>Boards</a></li>
-        <% if current_user.role == 0 %>
+        <% if validate_admin %>
         <li><a href="/announcements/new"/><span class="glyphicon glyphicon-wrench"></span>New Announcement</a></li>
         <% end %>
     </ul>

@@ -1,32 +1,34 @@
 class AnnouncementsController < ApplicationController
 
     def create
-        validate_user
+        if validate_user == true
 
-        unless current_user.role == 0
-            flash[:notice] = "You are not authorized to create new boards."
-            redirect_to(:back)
+            unless validate_admin == true
+                flash[:notice] = "You are not authorized to create new boards."
+                redirect_to(:back)
+            end
+
+            if params[:title].present? == false or params[:content].present? == false
+                flash[:notice] = "Please fill out all fields."
+                redirect_to(:back)
+            end
+
+            new_announcement = Announcement.create(title: params[:title], content: params[:content], user_id: current_user.id)
+
+            redirect_to announcements_path
         end
-
-        if params[:title].present? == false or params[:content].present? == false
-            flash[:notice] = "Please fill out all fields."
-            redirect_to(:back)
-        end
-
-        new_announcement = Announcement.create(title: params[:title], content: params[:content], user_id: current_user.id)
-
-        redirect_to announcements_path
     end
 
     def new
-        validate_user
+        if validate_user == true
 
-        unless current_user.role == 0
-            flash[:notice] = "Authorization Failed."
-            redirect_to board_path
+            unless validate_admin == true
+                flash[:notice] = "Authorization Failed."
+                redirect_to board_path
+            end
+
+            @announcement = Announcement.new
         end
-
-        @announcement = Announcement.new
     end
 
     def show

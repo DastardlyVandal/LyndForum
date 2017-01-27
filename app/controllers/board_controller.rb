@@ -1,24 +1,25 @@
 class BoardController < ApplicationController
 
   def create
-      validate_user
-      unless current_user.role == 0
-          flash[:notice] = "You are not authorized to create new boards."
-          redirect_to(:back)
-      end
+      if validate_user == true
+          unless validate_admin == true
+              flash[:notice] = "You are not authorized to create new boards."
+              redirect_to(:back)
+          end
 
-      new_board = Board.create(name: params[:name])
-      redirect_to '/board/' + new_board.id.to_s + '/streams/'
+          new_board = Board.create(name: params[:name])
+          redirect_to '/board/' + new_board.id.to_s + '/streams/'
+      end
   end
 
 
   def new
-      validate_user
-      unless current_user.role == 0
-          flash[:notice] = "Authorization Failed."
-          redirect_to board_path
+      if validate_user == true
+          unless validate_admin == true
+              flash[:notice] = "Authorization Failed."
+              redirect_to board_path
+          end
       end
-
   end
 
 
@@ -35,23 +36,23 @@ class BoardController < ApplicationController
   end
 
   def moderation
-      validate_user
-      unless current_user.role == 0 or current_user.role == 1
-          flash[:notice] = "You are not authorized to perform this action"
-          redirect_to('/board/')
-      end
+      if validate_user == true
+          if validate_mod == false
+              flash[:notice] = "You are not authorized to perform this action"
+              redirect_to('/board/')
+          end
 
-      if params[:page].present?
-          _page = params[:page]
-      else
-          _page = 1
+          if params[:page].present?
+              _page = params[:page]
+          else
+              _page = 1
+          end
+          @posts = Post.where(board_id: params[:board_id], reported: true)
+          @posts = @posts.paginate(page: _page, per_page: 10)
+          @streams = Stream.all
+          @users = User.all
+          @board_name = Board.find_by_id(params[:board_id]).name
       end
-      @posts = Post.where(board_id: params[:board_id], reported: true)
-      @posts = @posts.paginate(page: _page, per_page: 10)
-      @streams = Stream.all
-      @users = User.all
-      @board_name = Board.find_by_id(params[:board_id]).name
-
 
   end
 

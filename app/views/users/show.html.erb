@@ -2,7 +2,7 @@
     <div class="col-md-2">
         <h2><%= @user.name %></h2>
         <h4>Number of posts:</h4> <p> <%= @user.posts.count %> </p>
-        <h4>Threads Started:</h4> <%= @started_streams %>
+        <h4>Threads Started:</h4> <%= @user.streams.count %>
         <h4>Role:</h4> <%= @role %>
         <h4> Reputation: </h4>
         <h4>
@@ -10,7 +10,7 @@
             <span class="glyphicon glyphicon-thumbs-down"></span><%= @thumbdown %>
         </h4>
         <% if user_signed_in? %>
-            <% if current_user.role == 0 %>
+            <% if validate_admin %>
                 <% if @user.role == 1 %>
                 <div class="button demote-mod"  id="<%= @user.id %>">
                     <h4><span class="glyphicon glyphicon-tower"></span></h4>
@@ -33,8 +33,8 @@
             <% @posts.each do |posts| %>
                 <div class="row card">
                     <div class="col-md-9">
-                        <h4><a href="/board/<%= Stream.find(posts.stream_id).board_id.to_s%>/streams/<%= Stream.find(posts.stream_id).id.to_s%>#<%=posts.id %>">
-                            <%= Stream.find(posts.stream_id).title %>
+                        <h4><a href="/board/<%= posts.board_id %>/streams/<%= posts.stream_id %>#<%=posts.id %>">
+                            <%= posts.stream.title %>
                         </a></h4>
                     </div>
                     <div class="post-content col-lg-9">
@@ -49,7 +49,7 @@
 </div>
 
 <% if user_signed_in? %>
-    <% if current_user.role == 0 %>
+    <% if validate_admin %>
         <script>
             addMod();
         </script>

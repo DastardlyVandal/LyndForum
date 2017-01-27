@@ -22,4 +22,18 @@ module ApplicationHelper
 
     markdown.render(text).html_safe
   end
+
+  def validate_mod
+      if current_user.role == 0 or current_user.role == 1
+          return true
+      end
+      return false
+  end
+
+  def validate_admin
+      if current_user.role == 0
+          return true
+      end
+      return false
+  end
 end
