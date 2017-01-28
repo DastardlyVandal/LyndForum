@@ -1,6 +1,6 @@
 <div class="container">
     <h1>Edit Post</h1>
-    <%= form_for [@board, @stream, @post], url: { :action => "update", } do |f| %>
+    <%= form_for [@board, @stream, @post], url: { action: "update", } do |f| %>
         <div class="field">
             <%= f.label 'Response: ' %></br>
             <%= f.text_area :content, size: "50x10", required: true %>

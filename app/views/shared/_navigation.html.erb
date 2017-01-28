@@ -12,9 +12,10 @@
 		<ul class="nav navbar-nav navbar-right collapse navbar-collapse" id="top-nav">
 			<li><a href="/board/"><span class="glyphicon glyphicon-th-list"></span>Forum</a></li>
 			<% if user_signed_in? %>
+				<li><a href="/users/"><span class="glyphicon glyphicon-th-large"></span>Users</a></li>
 				<li><a href="/users/<%= current_user.id %>"><span class="glyphicon glyphicon-user"></span>Profile</a></li>
 				<li>
-					<%= link_to(destroy_user_session_path, :method => :delete) do %>
+					<%= link_to(destroy_user_session_path, method: :delete) do %>
 						Sign Out<span class="glyphicon glyphicon-log-out after-text-glyph"></span>
 					<% end %>
 				</li>

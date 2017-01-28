@@ -1,72 +1,56 @@
 <div>
     <div class="container">
+        <!-- Thread Status Indicators -->
         <% if @stream.is_stickied == true %>
             <h2><span class="stream_status sticky glyphicon glyphicon-paperclip" id="<%= @stream.id %>" ></span></h2>
         <% end %>
         <% if @stream.locked == true %>
             <h2><span class="stream_status lock glyphicon glyphicon-lock" id="<%= @stream.id %>" ></span></h2>
         <% end %>
+
         <h1>
             <%= @stream.title %>
         </h1>
-                <% if user_signed_in? %>
-                    <% if validate_mod %>
-                        <a class="admin-tools hidden delete-thread" id="<%= @stream.id %>"><span class="glyphicon glyphicon-trash"></span>Remove Thread</a>
-                        <% if  @stream.is_stickied == false %>
-                            <a class="sticky admin-tools hidden" id="<%= @stream.id %>"><span class="glyphicon glyphicon-paperclip"></span>Sticky Thread</a>
-                        <% end %>
-                        <a class="lock admin-tools hidden" id="<%= @stream.id %>"><span class="glyphicon glyphicon-lock"></span>Lock Thread</a>
-                    <% end %>
+
+        <% if user_signed_in? %>
+            <% if validate_mod %>
+                <!-- Moderation Controls -->
+                <a class="admin-tools hidden delete-thread" id="<%= @stream.id %>"><span class="glyphicon glyphicon-trash"></span>Remove Thread</a>
+                <% if  @stream.is_stickied == false %>
+                    <a class="sticky admin-tools hidden" id="<%= @stream.id %>"><span class="glyphicon glyphicon-paperclip"></span>Sticky Thread</a>
                 <% end %>
+                <a class="lock admin-tools hidden" id="<%= @stream.id %>"><span class="glyphicon glyphicon-lock"></span>Lock Thread</a>
+            <% end %>
+        <% end %>
+
         <div>
             Posted by: <%= @users.find_by_id(@stream.user_id).name %>
         </div>
         <div class="post-stream col-md-12">
             <% @posts.each do |posts| %>
                 <div class="row card">
+                    <!-- Handling the votes on posts -->
                     <div class="col-md-1">
                         <h3>
-                            <% if user_signed_in? # TODO: clean this%>
-                                <% if current_user.posts.find_by_id(posts.id).present? %>
-                                    <span class="glyphicon glyphicon-thumbs-up disabled"></span>
-                                    <span class="glyphicon glyphicon-thumbs-down disabled"></span>
-                                <% else %>
-                                    <% if @votes.where(post_id: posts.id, user_id: current_user.id).present? %>
-                                        <% if @votes.where(post_id: posts.id, user_id: current_user.id).pluck(:vote) == [1] %>
-                                            <span class="glyphicon glyphicon-thumbs-up voted"></span>
-                                            <span class="glyphicon glyphicon-thumbs-down vote-down" id="<%= posts.id %>"></span>
-                                        <% else %>
-                                            <span class="glyphicon glyphicon-thumbs-up vote-up" id="<%= posts.id %>"></span>
-                                            <span class="glyphicon glyphicon-thumbs-down voted"></span>
-                                        <% end %>
-                                    <% else %>
-                                        <span class="glyphicon glyphicon-thumbs-up vote-up"  id="<%= posts.id %>"></span>
-                                        <span class="glyphicon glyphicon-thumbs-down vote-down"  id="<%= posts.id %>"></span>
-                                    <% end %>
-                                <% end %>
-                            <% else %>
-                                <span class="glyphicon glyphicon-thumbs-up disabled"></span>
-                                <span class="glyphicon glyphicon-thumbs-down disabled"></span>
-                            <% end %>
+                            <%= display_votes(posts) %>
                         </h3>
 
                         <p>Votes: <%= posts.votes.count %></p>
                             <h4>
                                 <a href="/users/<%= User.find(posts.user_id).id %>"><%= User.find(posts.user_id).name %></a>
                             </h4>
-
-
                     </div>
 
                     <div class="post-content col-md-10">
                         <p><%= markdown(posts.content) %></p>
-
                     </div>
                     <div class="col-md-12 post-footer">
                         Posted <%= time_ago_in_words(posts.created_at) %> ago
                     </div>
+
                     <% if user_signed_in? %>
                         <% if validate_mod %>
+                            <!-- Moderation Tools -->
                             <div class="admin-tools hidden">
                                 <% if validate_admin %>
                                     <a href="/board/:/streams/:/post/<%= posts.id.to_s%>/edit"><span class="glyphicon glyphicon-edit"></span>Edit post</a>
@@ -82,6 +66,7 @@
                 </div>
             <% end %>
         </div>
+
         <div>
             <%= will_paginate @posts, inner_window: 2, outer_window: 2 %>
             <div>
@@ -90,6 +75,7 @@
         </div>
     </div>
 
+    <!-- Bottom Navigation -->
     <nav class="container navbar-fixed-bottom bot-nav" role="navigation">
     		<ul class="nav navbar-nav navbar-left hidden-sm hidden-xs">
                 <li><a href="/board/<%= @board.id %>/streams/"/><span class="glyphicon glyphicon-step-backward"></span> Back to <%= @board.name %></a></li>
@@ -101,7 +87,7 @@
                 <% end %>
             <% end %>
                 <li class="hidden-md hidden-lg"><a href="/board/<%= @board.id %>/streams/"/><span class="glyphicon glyphicon-step-backward"></span> Back to <%= @board.name %></a></li>
-                <li><a href="/board/<%= @board.id %>/streams/<%= @stream.id %>/post/new"><span class="glyphicon glyphicon-edit"></span>Reply</a></li>
+                <li><a href="/board/<%= @board.id %>/streams/<%= @stream.id %>/post/new"><span class="glyphicon glyphicon-comment"></span>Reply</a></li>
             </ul>
     </nav>
 

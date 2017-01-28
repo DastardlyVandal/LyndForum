@@ -1,9 +1,9 @@
 <div class="container">
     <h1>Create new Board</h1>
-    <%= form_tag ('/board/'), url: { :action => "create", } do %>
+    <%= form_tag ('/board/'), url: { action: "create", } do %>
         <div class="field">
             <%= label_tag 'Board Title: ' %></br>
-            <%= text_field_tag :name, nil, :required => true, size: 100, maxlength: 100 %></br>
+            <%= text_field_tag :name, nil, required: true, size: 100, maxlength: 100 %></br>
         </div>
         <div class="action">
             <%= submit_tag 'Create Board' %>

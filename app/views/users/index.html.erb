@@ -1,0 +1,21 @@
+<div class="container">
+    <h1> User List </h1>
+</div>
+
+<div class="container">
+    <div class="container-fluid">
+        <% @users.each do |user| %>
+                <div class="col-md-4 board-title">
+                    <h3><a href="/users/<%= user.id %>"><%= user.name %></a></h3>
+                    <p>Posts: <%= user.posts.count %></p>
+                    <p> Role: <%= get_role(user.id) %></p>
+                </div>
+        <% end %>
+    </div>
+    <div>
+        <%= will_paginate @posts, inner_window: 2, outer_window: 2 %>
+        <div>
+            <%= page_entries_info @posts %>
+        </div>
+    </div>
+</div>

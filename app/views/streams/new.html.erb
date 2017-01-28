@@ -1,11 +1,11 @@
 <div class="container">
         <h1>Make new thread  in <%= @board.name %></h1>
-        <%= form_tag ('/board/' + @board.id.to_s + '/streams'), url: { :action => "create", } do %>
+        <%= form_tag ('/board/' + @board.id.to_s + '/streams'), url: { action: "create", } do %>
             <div class="field">
                 <%= label_tag 'Title: ' %></br>
-                <%= text_field_tag :title, nil, :required => true, maxlength: 100 %></br>
+                <%= text_field_tag :title, nil, required: true, maxlength: 100 %></br>
                 <%= label_tag 'Content: '%></br>
-                <%= text_area_tag :content, nil, :required => true %>
+                <%= text_area_tag :content, nil, required: true %>
             </div>
             <div class="action">
                 <%= submit_tag 'Submit Post' %>

@@ -1,6 +1,6 @@
 <div class="container">
     <h1>Report Post</h1>
-    <%= form_for @post, url: { :action => "report_post", } do |f| %>
+    <%= form_for @post, url: { action: "report_post", } do |f| %>
         <div class="field">
             <h4><a href="/users/<%= @user.id %>"><%= @user.name %></a></h4>
             <div class="post-content">

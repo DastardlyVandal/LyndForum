@@ -29,6 +29,17 @@ class UsersController < ApplicationController
         end
     end
 
+    def index
+        if params[:page].present?
+            _page = params[:page]
+        else
+            _page = 1
+        end
+
+        @users = User.all
+        @users = @users.paginate(page: _page, per_page: 12)
+    end
+
     private
         #User Roles:
         #  0 => Admin

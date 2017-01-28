@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  validates_length_of :name, maximum: 20
+
   has_many :streams, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :announcements, dependent: :destroy
