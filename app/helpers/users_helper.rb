@@ -1,8 +1,11 @@
 module UsersHelper
 
     def get_role(uid)
-        role = User.find_by_id(uid).role
-        if role == 0
+        user = User.find_by_id(uid)
+        role = user.role
+        if user.banned
+            role_name = "Banned"
+        elsif role == 0
             role_name = "Admin"
         elsif role == 1
             role_name = "Moderator"

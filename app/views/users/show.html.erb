@@ -1,9 +1,9 @@
 <div class="container">
     <div class="col-md-3 username board-title">
-        <h2><%= @user.name %></h2>
-        <h4>Number of posts:</h4> <p> <%= @user.posts.count %> </p>
-        <h4>Threads Started:</h4> <%= @user.streams.count %>
-        <h4>Role:</h4> <%= @role %>
+        <h1><%= @user.name %></h1>
+        <h4><%= @role %></h4>
+        <h4>Posts: <%= @user.streams.count %></h4>
+        <h4>Comments: <%= @user.posts.count %></h4>
         <h4> Reputation: </h4>
         <h4>
             <span class="glyphicon glyphicon-thumbs-up"></span><%= @thumbup %>
@@ -15,21 +15,21 @@
                 <% elsif @user.role == 1 %>
                     <a><h4 class="demote-mod" id="<%= @user.id %>"><span class="glyphicon glyphicon-tower"></span>Demote Moderator</h4></a>
                 <% else %>
-                        <a href="#"><h4 class="make-mod" id="<%= @user.id %>"><span class="glyphicon glyphicon-tower"></span>Make Mod</h4></a>
-                <% end %>
-                <a href="#"><h4 class="ban" id="<%= @user.id %>"><span class="glyphicon glyphicon-ban-circle"></span>
+                    <a href="#"><h4 class="make-mod" id="<%= @user.id %>"><span class="glyphicon glyphicon-tower"></span>Make Mod</h4></a>
+                    <a href="#"><h4 class="ban" id="<%= @user.id %>"><span class="glyphicon glyphicon-ban-circle"></span>
                     <% if @user.banned? %>
                         Remove Ban from User
                     <% else %>
                         Ban User
                     <% end %>
+                <% end %>
                 </h4></a>
             <% end %>
         <% end %>
     </div>
 
     <!-- begin post history -->
-    <div class="col-md-9 ">
+    <div class="col-md-8 ">
         <h2> Post History</h2>
         <div class="post-history col-md-12">
             <% @posts.each do |posts| %>

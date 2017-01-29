@@ -64,8 +64,11 @@ class UsersController < ApplicationController
         #  1 => Mod
         #  2 => Normal User
         def get_role(uid)
-            role = User.find_by_id(uid).role
-            if role == 0
+            user = User.find_by_id(uid)
+            role = user.role
+            if user.banned
+                return "Banned"
+            elsif role == 0
                 return "Admin"
             elsif role == 1
                 return "Moderator"

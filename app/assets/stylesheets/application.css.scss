@@ -375,4 +375,8 @@ blockquote {
 
 .username {
     overflow-wrap: break-word;
+
+    h1 {
+        border-bottom: 1px solid black;
+    }
 }
