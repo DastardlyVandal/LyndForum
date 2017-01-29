@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
 
     def show
-        byebug
         if User.find_by_id(params[:id]).present?
             @user = User.find_by_id(params[:id])
             @posts = @user.posts.each
