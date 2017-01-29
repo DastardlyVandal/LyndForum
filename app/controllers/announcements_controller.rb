@@ -1,9 +1,9 @@
 class AnnouncementsController < ApplicationController
 
     def create
-        if validate_user == true
+        if validate_user
 
-            unless validate_admin == true
+            unless validate_admin
                 flash[:notice] = "You are not authorized to create new boards."
                 redirect_to(:back)
             end
@@ -20,9 +20,9 @@ class AnnouncementsController < ApplicationController
     end
 
     def new
-        if validate_user == true
+        if validate_user
 
-            unless validate_admin == true
+            unless validate_admin
                 flash[:notice] = "Authorization Failed."
                 redirect_to board_path
             end
@@ -43,7 +43,6 @@ class AnnouncementsController < ApplicationController
 
     def index
         @announcements = Announcement.all.reverse_order
-
     end
 
 end

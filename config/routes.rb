@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   post '/board/:board_id/streams/:stream_id/post/delete', to: 'post#delete'
   post '/board/:board_id/streams/:stream_id/post/ignore', to: 'post#ignore'
   post '/users/makeMod', to: 'users#make_mod'
+  post 'users/ban', to: 'users#ban'
   get '/board/:board_id/moderation', to: 'board#moderation'
   get '/board/:board_id/streams/:streams_id/post/:id/report', to: 'post#report'
   patch '/board/:board_id/streams/:streams_id/post/:id/report', to: 'post#report_post'

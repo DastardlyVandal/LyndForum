@@ -1,7 +1,7 @@
 class RulesController < ApplicationController
     def new
-        if validate_user == true
-            if validate_admin == true
+        if validate_user
+            if validate_admin
                 @board = Board.find_by_id(params[:board_id])
             else
                 flash[:notice] = "You are not authorized to do that."
@@ -11,8 +11,8 @@ class RulesController < ApplicationController
     end
 
     def create
-        if validate_user == true
-            if validate_admin == true
+        if validate_user
+            if validate_admin
                 if params[:reason] == ''
                     flash[:notice] = "Rule can't be empty."
                     redirect_to(:back)

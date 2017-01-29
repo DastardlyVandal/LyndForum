@@ -1,6 +1,6 @@
 class VotesController < ApplicationController
     def create
-        if validate_user == true
+        if validate_user
 
             _post_id = params[:post]
             _user_id = current_user.id

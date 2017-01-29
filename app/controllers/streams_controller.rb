@@ -1,7 +1,7 @@
 class StreamsController < ApplicationController
 
   def create
-      if validate_user == true
+      if validate_user
 
           unless params[:title].match(" ").present?
               flash[:notice] = "Please write your titles as a sentence."
@@ -28,7 +28,7 @@ class StreamsController < ApplicationController
   end
 
   def new
-      if validate_user == true
+      if validate_user
 
           @user = current_user
           @post = Post.new
@@ -78,8 +78,8 @@ class StreamsController < ApplicationController
   end
 
   def delete
-      if validate_user == true
-          if validate_mod == true
+      if validate_user
+          if validate_mod
              @stream = Stream.find_by_id(params[:stream])
              @stream.destroy
              redirect_to :back
@@ -88,8 +88,8 @@ class StreamsController < ApplicationController
   end
 
   def sticky
-      if validate_user == true
-          if validate_mod == true
+      if validate_user
+          if validate_mod
               @stream = Stream.find_by_id(params[:stream])
               @sticky = !@stream.is_stickied
               @stream.update(is_stickied: @sticky)
@@ -99,8 +99,8 @@ class StreamsController < ApplicationController
   end
 
   def lock
-      if validate_user == true
-          if validate_mod == true
+      if validate_user
+          if validate_mod
               @stream = Stream.find_by_id(params[:stream])
               @lock = !@stream.locked
               @stream.update(locked: @lock)

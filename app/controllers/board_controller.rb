@@ -1,8 +1,8 @@
 class BoardController < ApplicationController
 
   def create
-      if validate_user == true
-          unless validate_admin == true
+      if validate_user
+          unless validate_admin
               flash[:notice] = "You are not authorized to create new boards."
               redirect_to(:back)
           end
@@ -14,8 +14,8 @@ class BoardController < ApplicationController
 
 
   def new
-      if validate_user == true
-          unless validate_admin == true
+      if validate_user
+          unless validate_admin
               flash[:notice] = "Authorization Failed."
               redirect_to board_path
           end
@@ -36,7 +36,7 @@ class BoardController < ApplicationController
   end
 
   def moderation
-      if validate_user == true
+      if validate_user
           if validate_mod == false
               flash[:notice] = "You are not authorized to perform this action"
               redirect_to('/board/')
@@ -57,8 +57,8 @@ class BoardController < ApplicationController
   end
 
   def lock
-      if validate_user == true
-          if validate_admin == true
+      if validate_user
+          if validate_admin
               @board = Board.find_by_id(params[:board])
               @lock = !@board.locked
               @board.update(locked: @lock)
@@ -68,8 +68,8 @@ class BoardController < ApplicationController
   end
 
   def delete
-      if validate_user == true
-          if validate_admin == true
+      if validate_user
+          if validate_admin
               @board = Board.find_by_id(params[:board])
               @board.destroy
               redirect_to :back

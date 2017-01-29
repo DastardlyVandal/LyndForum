@@ -17,7 +17,13 @@
                 <% else %>
                         <a href="#"><h4 class="make-mod" id="<%= @user.id %>"><span class="glyphicon glyphicon-tower"></span>Make Mod</h4></a>
                 <% end %>
-                <a href="#"><h4 class id="<%= @user.id %>"><span class="glyphicon glyphicon-ban-circle"></span>Ban User</h4></a>                
+                <a href="#"><h4 class="ban" id="<%= @user.id %>"><span class="glyphicon glyphicon-ban-circle"></span>
+                    <% if @user.banned? %>
+                        Remove Ban from User
+                    <% else %>
+                        Ban User
+                    <% end %>
+                </h4></a>
             <% end %>
         <% end %>
     </div>
@@ -48,6 +54,7 @@
     <% if validate_admin %>
         <script>
             addMod();
+            banUser();
         </script>
     <% end %>
 <% end %>

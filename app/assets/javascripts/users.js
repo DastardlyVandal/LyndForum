@@ -25,3 +25,18 @@ function addMod(){
         })
     });
 }
+
+function banUser(){
+    $('.ban').click(function(){
+        user_id = $(this).attr('id')
+
+        $.ajax({
+            type: "POST",
+            url: '/users/ban',
+            data: {user: user_id},
+            success:{
+
+            }
+        })
+    });
+}

@@ -1,7 +1,7 @@
 class PostController < ApplicationController
 
     def create
-        if validate_user == true
+        if validate_user
             @stream = Stream.find_by_id(params[:stream_id])
             if @stream.locked?
                 flash[:notice] = "Thread is locked."
@@ -20,7 +20,7 @@ class PostController < ApplicationController
     end
 
     def new
-        if validate_user == true
+        if validate_user
 
             @user = current_user
             @post = Post.new
@@ -30,8 +30,8 @@ class PostController < ApplicationController
     end
 
     def update
-        if validate_user == true
-            unless validate_admin == true
+        if validate_user
+            unless validate_admin
                 flash[:notice] = "You are not permitted to perform this action."
                 redirect_to(root)
             end
@@ -47,8 +47,8 @@ class PostController < ApplicationController
     end
 
     def edit
-        if validate_user == true
-            unless validate_admin == true
+        if validate_user
+            unless validate_admin
                 flash[:notice] = "You are not permitted to perform this action."
                 redirect_to :back
             end
@@ -59,8 +59,8 @@ class PostController < ApplicationController
     end
 
     def delete
-        if validate_user == true
-            if validate_mod == true
+        if validate_user
+            if validate_mod
                Post.find_by_id(params[:post]).destroy
                redirect_to :back
             end
@@ -68,8 +68,8 @@ class PostController < ApplicationController
     end
 
     def ignore
-        if validate_user == true
-            if validate_mod == true
+        if validate_user
+            if validate_mod
                Post.find_by_id(params[:post]).update(reported: false)
                redirect_to :back
             end
@@ -77,8 +77,8 @@ class PostController < ApplicationController
     end
 
     def report_post
-        if validate_user == true
-            if validate_mod == true
+        if validate_user
+            if validate_mod
                 @post = Post.find_by_id(params[:id])
                 @post.update(rule: params[:post][:rule], reported: true)
                redirect_to('/board/' + @post.board_id.to_s + '/streams/' + @post.stream_id.to_s)
@@ -92,7 +92,7 @@ class PostController < ApplicationController
     end
 
     def report
-        if validate_user == true
+        if validate_user
             @post = Post.find_by_id(params[:id])
             @user = User.find_by_id(@post.user_id)
             @board_id = @post.board_id
