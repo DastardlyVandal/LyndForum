@@ -1,11 +1,13 @@
 class UsersController < ApplicationController
 
     def show
+        byebug
         if User.find_by_id(params[:id]).present?
             @user = User.find_by_id(params[:id])
             @posts = @user.posts.each
-            @thumbup = @user.votes.where(poster_id: @user.id, vote: 1).sum(:vote)
-            @thumbdown = @user.votes.where(poster_id: @user.id, vote: -1).sum(:vote)
+            @votes = Vote.where(poster_id: @user.id)
+            @thumbup = @votes.where(vote: 1).sum(:vote)
+            @thumbdown = @votes.where(vote: -1).sum(:vote)
             @role = get_role(@user.id)
         else
             flash[:notice] = "User not found."
