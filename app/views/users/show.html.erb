@@ -11,21 +11,15 @@
         </h4>
         <% if user_signed_in? %>
             <% if validate_admin %>
-                <% if @user.role == 1 %>
-                <div class="button demote-mod"  id="<%= @user.id %>">
-                    <h4><span class="glyphicon glyphicon-tower"></span></h4>
-                    <p>Demote Moderator</p>
-                </div>
-                <% elsif @user.role == 0 %>
+                <% if @user.role == 0 %>
+                <% elsif @user.role == 1 %>
+                    <a><h4 class="demote-mod" id="<%= @user.id %>"><span class="glyphicon glyphicon-tower"></span>Demote Moderator</h4></a>
                 <% else %>
-                    <div class="button make-mod"  id="<%= @user.id %>">
-                        <h4><span class="glyphicon glyphicon-tower"></span></h4>
-                        <p>Make Moderator</p>
-                    </div>
+                        <a href="#"><h4 class="make-mod" id="<%= @user.id %>"><span class="glyphicon glyphicon-tower"></span>Make Mod</h4></a>
                 <% end %>
+                <a href="#"><h4 class id="<%= @user.id %>"><span class="glyphicon glyphicon-ban-circle"></span>Ban User</h4></a>                
             <% end %>
         <% end %>
-        <a href="/users/">User List</a>
     </div>
 
     <!-- begin post history -->
