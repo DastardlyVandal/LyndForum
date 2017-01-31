@@ -14,12 +14,14 @@
 
         <% if user_signed_in? %>
             <% if validate_mod %>
-                <!-- Moderation Controls -->
-                <a class="admin-tools hidden delete-thread" id="<%= @stream.id %>"><span class="glyphicon glyphicon-trash"></span>Remove Thread</a>
-                <% if  @stream.is_stickied == false %>
-                    <a class="sticky admin-tools hidden" id="<%= @stream.id %>"><span class="glyphicon glyphicon-paperclip"></span>Sticky Thread</a>
-                <% end %>
-                <a class="lock admin-tools hidden" id="<%= @stream.id %>"><span class="glyphicon glyphicon-lock"></span>Lock Thread</a>
+                <div class="admin-tools">
+                    <!-- Moderation Controls -->
+                    <a class="delete-thread" id="<%= @stream.id %>"><span class="glyphicon glyphicon-trash"></span>Remove Thread</a>
+                    <% if  @stream.is_stickied == false %>
+                        <a class="sticky" id="<%= @stream.id %>"><span class="glyphicon glyphicon-paperclip"></span>Sticky Thread</a>
+                    <% end %>
+                    <a class="lock" id="<%= @stream.id %>"><span class="glyphicon glyphicon-lock"></span>Lock Thread</a>
+                </div>
             <% end %>
         <% end %>
 
@@ -49,17 +51,15 @@
                     </div>
 
                     <% if user_signed_in? %>
+                        <div class="col-md-12">
+                            <a href="/board/:/streams/:/post/<%= posts.id.to_s%>/report"><span class="glyphicon glyphicon-edit"></span>Report</a>
                         <% if validate_mod %>
                             <!-- Moderation Tools -->
-                            <div class="admin-tools hidden">
                                 <% if validate_admin %>
                                     <a href="/board/:/streams/:/post/<%= posts.id.to_s%>/edit"><span class="glyphicon glyphicon-edit"></span>Edit post</a>
                                 <% end %>
                                     <a class="delete-post" id="<%= posts.id.to_s %>" ><span class="glyphicon glyphicon-trash"></span>Delete post</a>
-                            </div>
                         <% end %>
-                        <div class="col-md-12">
-                            <a href="/board/:/streams/:/post/<%= posts.id.to_s%>/report"><span class="glyphicon glyphicon-edit"></span>Report</a>
                         </div>
                     <% end %>
 

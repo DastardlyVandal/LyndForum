@@ -27,14 +27,12 @@
                     <p><a href="/board/<%= board.id %>/rules/">View Rules</a></p>
                     <% if user_signed_in? %>
                         <% if validate_mod %>
-                        <div class="admin-tools hidden">
-                            <h4> Moderation Tools: </h4>
-                            <p><a href="/board/<%= board.id %>/moderation/">View Moderation log</a></p>
+                        <div class="admin-tools">
+                            <p><a href="/board/<%= board.id %>/moderation/"><span class="glyphicon glyphicon-wrench"></span>View Moderation log</a></p>
                             <% if validate_admin %>
-                                <p><a href="/board/<%= board.id %>/rules/new">Add Rule</a></p>
-                                <p class="delete" id="<%= board.id %>"><a href="#">Delete Board</a></p>
+                                <p class="delete" id="<%= board.id %>"><a href="#"><span class="glyphicon glyphicon-wrench"></span>Delete Board</a></p>
                                 <% if board.locked == false %>
-                                    <p class="lock" id="<%= board.id %>"><a href="#">Lock Board</a></p>
+                                    <p class="lock" id="<%= board.id %>"><a href="#"><span class="glyphicon glyphicon-wrench"></span>Lock Board</a></p>
                                 <% end %>
                             <% end %>
                         </div>

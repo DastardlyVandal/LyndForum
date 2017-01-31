@@ -13,13 +13,14 @@ class RulesController < ApplicationController
     def create
         if validate_user
             if validate_admin
-                if params[:reason] == ''
-                    flash[:notice] = "Rule can't be empty."
-                    redirect_to(:back)
-                else
-                    new_rule = Rule.create(board_id: params[:board_id], rule: params[:reason])
-                    redirect_to('/board/')
+                rules = params[:rule]
+                board_id = params[:board_id]
+                rules.each do |r|
+                    unless r == ""
+                        Rule.create(board_id: board_id, rule: r)
+                    end
                 end
+                redirect_to('/board/' + board_id + '/rules/')
             else
                 flash[:notice] = "You are not authorized to do that."
                 redirect_to('/board/')

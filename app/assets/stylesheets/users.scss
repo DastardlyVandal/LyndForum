@@ -1,37 +1,17 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
-/*.user-info {
-    float: left;
-    display: block;
-    height: auto;
-    min-height: 100% !important;
-}*/
- @import "constants";
-
-.user-column {
-    float: left;
-    height: 70vh;
-}
-
-.user-card {
-    border-radius: 6px;
-    border-style: dotted;
-    border-width: thin;
-    border-top: none;
-    border-left: none;
-    margin: 3px;
-    padding-left: 12px;
-    background-color: $user-card;
-}
+@import "constants";
 
 .post-history {
     padding: 6px;
     margin: 6px;
 }
 
-
-.button {
+.username {
     overflow-wrap: break-word;
+
+    h1 {
+        border-bottom: 1px solid $font-color;
+    }
 }

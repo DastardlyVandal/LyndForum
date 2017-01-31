@@ -12,10 +12,21 @@
         </div>
         <% end %>
     </ul>
+
+    <% if user_signed_in? %>
+        <% if validate_admin %>
+            <div>
+                <a href="/board/<%= @board.id %>/rules/new">Add Rules</a>
+            </div>
+        <% end %>
+    <% end %>
 </div>
 
 <div class="container container-fluid navbar-fixed-bottom bot-nav">
     <ul class="nav navbar-nav navbar-left">
         <li><a href="/board/"/><span class="glyphicon glyphicon-step-backward"></span> Return to Boards</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="/board/<%= @board.id %>/streams/"><span class="glyphicon glyphicon-th-list"></span> View <%= @board.name %></a></li>
     </ul>
 </div>

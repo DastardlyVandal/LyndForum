@@ -20,10 +20,12 @@ function showAdmin(){
     $('.admin-button').click(function(){
         if ( $('.admin-tools').hasClass('admining') ){
             $('.admin-tools').removeClass('admining');
-            $('.admin-tools').addClass('hidden');
+            $('.admin-tools').css('display', 'none');
+//            $('.admin-tools').addClass('hidden');
         } else {
-            $('.admin-tools').removeClass('hidden');
+//            $('.admin-tools').removeClass('hidden');
             $('.admin-tools').addClass('admining');
+            $('.admin-tools').css('display', 'inline');
         }
     });
 }
@@ -47,14 +49,16 @@ function deletePost(){
     $('.delete-post').click(function(){
         post_id = $(this).attr('id');
 
-        $.ajax({
-            type: "POST",
-            url: '/board/:/streams/:/post/delete',
-            data: {post: post_id},
-            success:{
+        if (confirm('Delete this post?')){
+            $.ajax({
+                type: "POST",
+                url: '/board/:/streams/:/post/delete',
+                data: {post: post_id},
+                success:{
 
-            }
-        })
+                }
+            })
+        }
 
     });
 }

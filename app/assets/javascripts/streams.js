@@ -32,13 +32,15 @@ function deleteThread(){
     $('.delete-thread').click(function(){
         stream_id = $(this).attr('id')
 
-        $.ajax({
-            type: "POST",
-            url: '/board/:/streams/delete',
-            data: {stream: stream_id},
-            success:{
+        if (confirm('Remove this thread?')){
+            $.ajax({
+                type: "POST",
+                url: '/board/:/streams/delete',
+                data: {stream: stream_id},
+                success:{
 
-            }
-        })
+                }
+            })
+        }
     });
 }
