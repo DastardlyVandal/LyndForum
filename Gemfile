@@ -29,7 +29,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'devise'
 gem 'bootstrap-sass', '~> 3.2.0'
-gem 'pg'
+#gem 'pg'
 gem 'will_paginate', '~> 3.1.1'
 
 # Use Capistrano for deployment
