@@ -3,13 +3,6 @@
     <div class="card">
         <div class="col-md-2">
             <h4><a href="/users/<%= User.find(@announcement.user_id).id %>"><%= User.find(@announcement.user_id).name %></a></h4>
-            <div>
-                    <span class="glyphicon glyphicon-tint">: 11</span>
-                    <span class="glyphicon glyphicon-road">: 239</span>
-                    <span class="glyphicon glyphicon-flash">: 581</span>
-                    <span class="glyphicon glyphicon-cutlery">: -17</span>
-            </div>
-            Role: <%= @role %>
         </div>
             <div class="post-content col-md-9">
                 <p><%= markdown(@announcement.content) %></p>

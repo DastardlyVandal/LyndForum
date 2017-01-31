@@ -24,15 +24,19 @@ module ApplicationHelper
   end
 
   def validate_mod
-      if current_user.role == 0 or current_user.role == 1
-          return true
+      if user_signed_in?
+          if current_user.role == 0 or current_user.role == 1
+              return true
+          end
       end
-      return false
+    return false
   end
 
   def validate_admin
-      if current_user.role == 0
-          return true
+      if user_signed_in?
+          if current_user.role == 0
+              return true
+          end
       end
       return false
   end

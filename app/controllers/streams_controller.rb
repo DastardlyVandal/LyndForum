@@ -1,40 +1,36 @@
 class StreamsController < ApplicationController
+  before_action :validate_user, only: [:create, :new]
+  before_action :validate_mod, only: [:sticky, :lock, :delete]
 
   def create
-      if validate_user
+      unless params[:title].match(" ").present?
+          flash[:notice] = "Please write your titles as a sentence."
+          redirect_to(:back)
+      else
+          if params[:title].length <= 100
+              if params[:content].length <= 10000
+                  content = params[:content]
+                  new_stream = Stream.create(board_id: params[:board_id], user_id: current_user.id, title: params[:title])
+                  current_user.posts.create(board_id: params[:board_id], stream_id: new_stream.id, content: content)
 
-          unless params[:title].match(" ").present?
-              flash[:notice] = "Please write your titles as a sentence."
-              redirect_to(:back)
-          else
-              if params[:title].length <= 100
-                  if params[:content].length <= 10000
-                      content = params[:content]
-                      new_stream = Stream.create(board_id: params[:board_id], user_id: current_user.id, title: params[:title])
-                      current_user.posts.create(board_id: params[:board_id], stream_id: new_stream.id, content: content)
-
-                      redirect_to board_streams_path + '/' + new_stream.id.to_s
-                  else
-                      flash[:notice] = "Comment is too long."
-                      redirect_to(:back)
-                  end
-
+                  redirect_to board_streams_path + '/' + new_stream.id.to_s
               else
-                  flash[:notice] = "Title is too long."
+                  flash[:notice] = "Comment is too long."
                   redirect_to(:back)
               end
+
+          else
+              flash[:notice] = "Title is too long."
+              redirect_to(:back)
           end
       end
   end
 
   def new
-      if validate_user
-
-          @user = current_user
-          @post = Post.new
-          @board = Board.find_by_id(params[:board_id])
-          @stream = Stream.new
-      end
+      @user = current_user
+      @post = Post.new
+      @board = Board.find_by_id(params[:board_id])
+      @stream = Stream.new
   end
 
   def index
@@ -78,35 +74,23 @@ class StreamsController < ApplicationController
   end
 
   def delete
-      if validate_user
-          if validate_mod
-             @stream = Stream.find_by_id(params[:stream])
-             @stream.destroy
-             redirect_to :back
-          end
-      end
+     @stream = Stream.find_by_id(params[:stream])
+     @stream.destroy
+     redirect_to :back
   end
 
   def sticky
-      if validate_user
-          if validate_mod
-              @stream = Stream.find_by_id(params[:stream])
-              @sticky = !@stream.is_stickied
-              @stream.update(is_stickied: @sticky)
-              redirect_to :back
-          end
-      end
+      @stream = Stream.find_by_id(params[:stream])
+      @sticky = !@stream.is_stickied
+      @stream.update(is_stickied: @sticky)
+      redirect_to :back
   end
 
   def lock
-      if validate_user
-          if validate_mod
-              @stream = Stream.find_by_id(params[:stream])
-              @lock = !@stream.locked
-              @stream.update(locked: @lock)
-              redirect_to :back
-          end
-      end
+      @stream = Stream.find_by_id(params[:stream])
+      @lock = !@stream.locked
+      @stream.update(locked: @lock)
+      redirect_to :back
   end
 
 end

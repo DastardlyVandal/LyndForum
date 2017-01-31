@@ -1,22 +1,15 @@
 class AnnouncementsController < ApplicationController
+    before_action :validate_admin, only: [:create, :new]
 
     def create
-        if validate_user
-
-            unless validate_admin
-                flash[:notice] = "You are not authorized to create new boards."
-                redirect_to(:back)
-            end
-
-            if params[:title].present? == false or params[:content].present? == false
-                flash[:notice] = "Please fill out all fields."
-                redirect_to(:back)
-            end
-
-            new_announcement = Announcement.create(title: params[:title], content: params[:content], user_id: current_user.id)
-
-            redirect_to announcements_path
+        if params[:title].present? == false or params[:content].present? == false
+            flash[:notice] = "Please fill out all fields."
+            redirect_to(:back)
         end
+
+        new_announcement = Announcement.create(title: params[:title], content: params[:content], user_id: current_user.id)
+
+        redirect_to announcements_path
     end
 
     def new

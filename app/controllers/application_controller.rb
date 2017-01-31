@@ -10,14 +10,22 @@ class ApplicationController < ActionController::Base
   end
 
   def validate_mod
-      if current_user.role == 0 or current_user.role == 1
+      if validate_user
+          if current_user.role > 1
+              flash[:notice] = "You are not authorized to perform this action"
+              redirect_to '/board/' and return false
+          end
           return true
       end
       return false
   end
 
   def validate_admin
-      if current_user.role == 0
+      if validate_user
+          if current_user.role != 0
+              flash[:notice] = "Sign in or Join us to continue!"
+              redirect_to '/board/' and return false
+          end
           return true
       end
       return false

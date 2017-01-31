@@ -18,25 +18,24 @@
 
     <div class="container-fluid">
         <% @boards.each do |board| %>
-                <div class="col-md-4 board-title">
-                    <% if board.locked? %>
-                        <span class="board_status lock glyphicon glyphicon-lock" id="<%= board.id %>"></span>
-                    <% end %>
-                    <h3><a href="/board/<%= board.id %>/streams/"><%= board.name %></a></h3>
-                    <p>Threads: <%= board.streams.length %></p>
-                    <p><a href="/board/<%= board.id %>/rules/">View Rules</a></p>
-                    <% if user_signed_in? %>
-                        <% if validate_mod %>
-                        <div class="admin-tools">
-                            <p><a href="/board/<%= board.id %>/moderation/"><span class="glyphicon glyphicon-wrench"></span>View Moderation log</a></p>
-                            <% if validate_admin %>
-                                <p class="delete" id="<%= board.id %>"><a href="#"><span class="glyphicon glyphicon-wrench"></span>Delete Board</a></p>
-                                <% if board.locked == false %>
-                                    <p class="lock" id="<%= board.id %>"><a href="#"><span class="glyphicon glyphicon-wrench"></span>Lock Board</a></p>
-                                <% end %>
+            <div class="col-md-4 board-title">
+                <% if board.locked? %>
+                    <span class="board_status lock glyphicon glyphicon-lock" id="<%= board.id %>"></span>
+                <% end %>
+                <h3><a href="/board/<%= board.id %>/streams/"><%= board.name %></a></h3>
+                <p>Threads: <%= board.streams.length %></p>
+                <p><a href="/board/<%= board.id %>/rules/">View Rules</a></p>
+
+                    <% if validate_mod %>
+                    <div class="admin-tools">
+                        <p><a href="/board/<%= board.id %>/moderation/"><span class="glyphicon glyphicon-wrench"></span>View Moderation log</a></p>
+                        <% if validate_admin %>
+                            <p class="delete" id="<%= board.id %>"><a href="#"><span class="glyphicon glyphicon-wrench"></span>Delete Board</a></p>
+                            <% if board.locked == false %>
+                                <p class="lock" id="<%= board.id %>"><a href="#"><span class="glyphicon glyphicon-wrench"></span>Lock Board</a></p>
                             <% end %>
-                        </div>
                         <% end %>
+                    </div>
                     <% end %>
                 </div>
         <% end %>
@@ -60,23 +59,20 @@
 <!-- Bottom Navigation -->
 <div class="container container-fluid navbar-fixed-bottom bot-nav">
     <ul class="nav navbar-nav navbar-right">
-        <% if user_signed_in? %>
-            <% if validate_mod %>
-                <li class="admin-controls admin-button"><a><span class="glyphicon glyphicon-wrench"></span></a></li>
-            <% end %>
-            <% if validate_admin %>
-                <li><a href="/announcements/new"/>New Announcement<span class="glyphicon glyphicon-edit"></span></a></li>
-                <li><a href="/board/new">New Board<span class="glyphicon glyphicon-plus"></span></a></li>
-            <% end %>
+        <% if validate_mod %>
+            <li class="admin-controls admin-button"><a><span class="glyphicon glyphicon-wrench"></span></a></li>
+        <% end %>
+        <% if validate_admin %>
+            <li><a href="/announcements/new"/>New Announcement<span class="glyphicon glyphicon-edit"></span></a></li>
+            <li><a href="/board/new">New Board<span class="glyphicon glyphicon-plus"></span></a></li>
         <% end %>
     </ul>
 </div>
 
-<% if user_signed_in? %>
-    <% if validate_admin == true %>
-    <script>
-        lockBoard();
-        deleteBoard();
-    </script>
-    <% end %>
+
+<% if validate_admin == true %>
+<script>
+    lockBoard();
+    deleteBoard();
+</script>
 <% end %>

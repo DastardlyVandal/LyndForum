@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+    before_action :validate_admin, only: [:make_mod, :ban]
+    before_action :validate_user, only: [:index]
 
     def show
         if User.find_by_id(params[:id]).present?
@@ -15,46 +17,33 @@ class UsersController < ApplicationController
     end
 
     def index
-        if validate_user
-            if params[:page].present?
-                _page = params[:page]
-            else
-                _page = 1
-            end
-
-            @users = User.all
-            @users = @users.paginate(page: _page, per_page: 12)
+        if params[:page].present?
+            _page = params[:page]
+        else
+            _page = 1
         end
+
+        @users = User.all
+        @users = @users.paginate(page: _page, per_page: 12)
     end
 
     def make_mod
-        if validate_user
-            if validate_admin
-                user = User.find_by_id(params[:user])
-                if user.role != 0
-                    user.update(role: params[:role])
-                    flash[:notice] = "User Moderation status changed"
-                    redirect_to :back
-                end
-            else
-                flash[:notice] = "Operation not permitted"
-                redirect_to('/')
-            end
+        user = User.find_by_id(params[:user])
+        if user.role != 0
+            user.update(role: params[:role])
+            flash[:notice] = "User Moderation status changed"
+            redirect_to :back
         end
     end
 
     def ban
-        if validate_user
-            if validate_admin
-                user = User.find_by_id(params[:user])
-                unless user.role == 0
-                    ban_status = !user.banned
-                    user.update(banned: ban_status)
-                    flash[:notice] = "User banned status changed"
-                end
-                redirect_to :back
-            end
+        user = User.find_by_id(params[:user])
+        unless user.role == 0
+            ban_status = !user.banned
+            user.update(banned: ban_status)
+            flash[:notice] = "User banned status changed"
         end
+        redirect_to :back
     end
 
 

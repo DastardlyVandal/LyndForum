@@ -16,7 +16,6 @@ function lockBoard(){
 function deleteBoard(){
     $('.delete').click(function(){
         board_id = $(this).attr('id')
-        alert(board_id)
 
         $.ajax({
             type: "POST",

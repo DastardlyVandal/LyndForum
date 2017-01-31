@@ -13,12 +13,11 @@
         <% end %>
     </ul>
 
-    <% if user_signed_in? %>
-        <% if validate_admin %>
-            <div>
-                <a href="/board/<%= @board.id %>/rules/new">Add Rules</a>
-            </div>
-        <% end %>
+
+    <% if validate_admin %>
+        <div>
+            <a href="/board/<%= @board.id %>/rules/new">Add Rules</a>
+        </div>
     <% end %>
 </div>
 

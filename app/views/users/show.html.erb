@@ -9,22 +9,20 @@
             <span class="glyphicon glyphicon-thumbs-up"></span><%= @thumbup %>
             <span class="glyphicon glyphicon-thumbs-down"></span><%= @thumbdown %>
         </h4>
-        <% if user_signed_in? %>
-            <% if validate_admin %>
-                <% if @user.role == 0 %>
-                <% elsif @user.role == 1 %>
-                    <a><h4 class="demote-mod" id="<%= @user.id %>"><span class="glyphicon glyphicon-tower"></span>Demote Moderator</h4></a>
+        <% if validate_admin %>
+            <% if @user.role == 0 %>
+            <% elsif @user.role == 1 %>
+                <a><h4 class="demote-mod" id="<%= @user.id %>"><span class="glyphicon glyphicon-tower"></span>Demote Moderator</h4></a>
+            <% else %>
+                <a href="#"><h4 class="make-mod" id="<%= @user.id %>"><span class="glyphicon glyphicon-tower"></span>Make Mod</h4></a>
+                <a href="#"><h4 class="ban" id="<%= @user.id %>"><span class="glyphicon glyphicon-ban-circle"></span>
+                <% if @user.banned? %>
+                    Remove Ban from User
                 <% else %>
-                    <a href="#"><h4 class="make-mod" id="<%= @user.id %>"><span class="glyphicon glyphicon-tower"></span>Make Mod</h4></a>
-                    <a href="#"><h4 class="ban" id="<%= @user.id %>"><span class="glyphicon glyphicon-ban-circle"></span>
-                    <% if @user.banned? %>
-                        Remove Ban from User
-                    <% else %>
-                        Ban User
-                    <% end %>
+                    Ban User
                 <% end %>
-                </h4></a>
             <% end %>
+            </h4></a>
         <% end %>
     </div>
 
@@ -50,11 +48,10 @@
     <!-- end post history -->
 </div>
 
-<% if user_signed_in? %>
-    <% if validate_admin %>
-        <script>
-            addMod();
-            banUser();
-        </script>
-    <% end %>
+
+<% if validate_admin %>
+    <script>
+        addMod();
+        banUser();
+    </script>
 <% end %>

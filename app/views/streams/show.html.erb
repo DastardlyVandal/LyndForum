@@ -12,18 +12,18 @@
             <%= @stream.title %>
         </h1>
 
-        <% if user_signed_in? %>
-            <% if validate_mod %>
-                <div class="admin-tools">
-                    <!-- Moderation Controls -->
-                    <a class="delete-thread" id="<%= @stream.id %>"><span class="glyphicon glyphicon-trash"></span>Remove Thread</a>
-                    <% if  @stream.is_stickied == false %>
-                        <a class="sticky" id="<%= @stream.id %>"><span class="glyphicon glyphicon-paperclip"></span>Sticky Thread</a>
-                    <% end %>
-                    <a class="lock" id="<%= @stream.id %>"><span class="glyphicon glyphicon-lock"></span>Lock Thread</a>
-                </div>
-            <% end %>
+
+        <% if validate_mod %>
+            <div class="admin-tools">
+                <!-- Moderation Controls -->
+                <a class="delete-thread" id="<%= @stream.id %>"><span class="glyphicon glyphicon-trash"></span>Remove Thread</a>
+                <% if  @stream.is_stickied == false %>
+                    <a class="sticky" id="<%= @stream.id %>"><span class="glyphicon glyphicon-paperclip"></span>Sticky Thread</a>
+                <% end %>
+                <a class="lock" id="<%= @stream.id %>"><span class="glyphicon glyphicon-lock"></span>Lock Thread</a>
+            </div>
         <% end %>
+
 
         <div>
             Posted by: <%= @users.find_by_id(@stream.user_id).name %>
@@ -81,11 +81,10 @@
                 <li><a href="/board/<%= @board.id %>/streams/"/><span class="glyphicon glyphicon-step-backward"></span> Back to <%= @board.name %></a></li>
     		</ul>
             <ul class="nav navbar-nav navbar-right">
-            <% if user_signed_in? %>
-                <% if validate_mod %>
-                    <li class="admin-controls admin-button"><a><span class="glyphicon glyphicon-wrench"></span></a></li>
-                <% end %>
+            <% if validate_mod %>
+                <li class="admin-controls admin-button"><a><span class="glyphicon glyphicon-wrench"></span></a></li>
             <% end %>
+
                 <li class="hidden-md hidden-lg"><a href="/board/<%= @board.id %>/streams/"/><span class="glyphicon glyphicon-step-backward"></span> Back to <%= @board.name %></a></li>
                 <li><a href="/board/<%= @board.id %>/streams/<%= @stream.id %>/post/new"><span class="glyphicon glyphicon-comment"></span>Reply</a></li>
             </ul>
@@ -97,7 +96,7 @@
 <script>
     <% if user_signed_in? %>
         vote();
-        <% if validate_mod == true %>
+        <% if validate_mod %>
             sticky();
             lock();
             deleteThread();
