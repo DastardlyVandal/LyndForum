@@ -6,6 +6,8 @@ This is a personal project that I am building on the side, as a learning exercis
 
 At a later point, I will include scheduled tasks that will generate a moderation queue for users with a low reputation at the end of every day.
 
+[Demo](http://ec2-52-34-41-44.us-west-2.compute.amazonaws.com:3000/)
+
 ## Installation
 
 (I will write distro-specific installation instructions at a later date)
