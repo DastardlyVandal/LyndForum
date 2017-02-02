@@ -39,15 +39,17 @@ class BoardController < ApplicationController
   end
 
   def lock
-      @board = Board.find_by_id(params[:board])
+      @board = Board.find_by_id(params[:board_id])
       @lock = !@board.locked
       @board.update(locked: @lock)
       redirect_to :back
   end
 
-  def delete
-      @board = Board.find_by_id(params[:board])
-      @board.destroy
+  def destroy
+      board = Board.find_by_id(params[:id])
+      board_name = board.name
+      board.destroy
+      flash[:notice] = "Removed " + board_name
       redirect_to :back
   end
 

@@ -21,60 +21,9 @@ function showAdmin(){
         if ( $('.admin-tools').hasClass('admining') ){
             $('.admin-tools').removeClass('admining');
             $('.admin-tools').css('display', 'none');
-//            $('.admin-tools').addClass('hidden');
         } else {
-//            $('.admin-tools').removeClass('hidden');
             $('.admin-tools').addClass('admining');
             $('.admin-tools').css('display', 'inline');
         }
-    });
-}
-
-function hideTopNav(){
-    $(window).scroll(function() {
-        if ($(window).width() <= 768) {
-            if ($(this).scrollTop()>0)
-             {
-                $('.navbar-fixed-top').fadeOut();
-             }
-            else
-             {
-              $('.navbar-fixed-top').fadeIn();
-             }
-         }
-         });
-}
-
-function deletePost(){
-    $('.delete-post').click(function(){
-        post_id = $(this).attr('id');
-
-        if (confirm('Delete this post?')){
-            $.ajax({
-                type: "POST",
-                url: '/board/:/streams/:/post/delete',
-                data: {post: post_id},
-                success:{
-
-                }
-            })
-        }
-
-    });
-}
-
-function ignoreReport(){
-    $('.ignore-report').click(function(){
-        post_id = $(this).attr('id');
-
-        $.ajax({
-            type: "POST",
-            url: '/board/:/streams/:/post/ignore',
-            data: {post: post_id},
-            success:{
-
-            }
-        })
-
     });
 }

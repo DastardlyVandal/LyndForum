@@ -28,16 +28,20 @@ class UsersController < ApplicationController
     end
 
     def make_mod
-        user = User.find_by_id(params[:user])
+        user = User.find_by_id(params[:user_id])
         if user.role != 0
-            user.update(role: params[:role])
+            if user.role == 2
+                user.update(role: 1)
+            else
+                user.update(role: 2)
+            end
             flash[:notice] = "User Moderation status changed"
             redirect_to :back
         end
     end
 
     def ban
-        user = User.find_by_id(params[:user])
+        user = User.find_by_id(params[:user_id])
         unless user.role == 0
             ban_status = !user.banned
             user.update(banned: ban_status)

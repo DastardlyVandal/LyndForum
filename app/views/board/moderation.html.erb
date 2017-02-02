@@ -30,8 +30,15 @@
                             <% if validate_admin %>
                                     <li><a href="/board/:/streams/:/post/<%= posts.id.to_s%>/edit"><span class="glyphicon glyphicon-edit"></span>Edit</a></li>
                             <% end %>
-                                    <li><a class="delete-post" id="<%= posts.id.to_s %>" href="#" ><span class="glyphicon glyphicon-trash"></span>Delete</a></li>
-                                    <li><a class="ignore-report" id="<%= posts.id.to_s %>" href="#" ><span class="glyphicon glyphicon-volume-off"></span>Ignore</a></li>
+                                    <li>
+                                    <%= link_to '<span class="glyphicon glyphicon-trash"></span>Delete'.html_safe, board_stream_post_path(stream_id: 0, id: posts.id),
+                                        method: :delete,
+                                        data: {confirm: 'Are you sure?'} %>
+                                    </li>
+                                    <%= link_to '<span class="glyphicon glyphicon-volume-off"></span>Ignore'.html_safe,
+                                        board_stream_post_ignore_path(post_id: posts.id, stream_id: posts.stream_id),
+                                        method: :post %>
+                                    </li>
                             </ul></h4>
                         </div>
 
@@ -60,8 +67,3 @@
         <li><a href="/board/"><span class="glyphicon glyphicon-th-list"></span> Return to Boards </a></li>
     </ul>
 </div>
-
-<script>
-    deletePost();
-    ignoreReport();
-</script>

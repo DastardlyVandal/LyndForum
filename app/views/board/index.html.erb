@@ -21,6 +21,8 @@
             <div class="col-md-4 board-title">
                 <% if board.locked? %>
                     <span class="board_status lock glyphicon glyphicon-lock" id="<%= board.id %>"></span>
+                    <%= link_to '<span class="board_status glyphicon glyphicon-lock"></span>'.html_safe, board_lock_path(board_id: board.id),
+                        method: :post %>
                 <% end %>
                 <h3><a href="/board/<%= board.id %>/streams/"><%= board.name %></a></h3>
                 <p>Threads: <%= board.streams.length %></p>
@@ -30,9 +32,13 @@
                     <div class="admin-tools">
                         <p><a href="/board/<%= board.id %>/moderation/"><span class="glyphicon glyphicon-wrench"></span>View Moderation log</a></p>
                         <% if validate_admin %>
-                            <p class="delete" id="<%= board.id %>"><a href="#"><span class="glyphicon glyphicon-wrench"></span>Delete Board</a></p>
+                            <%= link_to '<span class="glyphicon glyphicon-wrench"></span>Delete Board'.html_safe,
+                                board_path(id: board.id),
+                                method: :delete,
+                                data: {confirm: 'Are you sure?'} %>
                             <% if board.locked == false %>
-                                <p class="lock" id="<%= board.id %>"><a href="#"><span class="glyphicon glyphicon-wrench"></span>Lock Board</a></p>
+                                <%= link_to '<span class="glyphicon glyphicon-wrench"></span>Lock Board'.html_safe, board_lock_path(board_id: board.id),
+                                    method: :post %>
                             <% end %>
                         <% end %>
                     </div>

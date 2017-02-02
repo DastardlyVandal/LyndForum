@@ -73,23 +73,32 @@ class StreamsController < ApplicationController
     end
   end
 
-  def delete
-     @stream = Stream.find_by_id(params[:stream])
-     @stream.destroy
-     redirect_to :back
+  def destroy
+     stream = Stream.find_by_id(params[:id])
+     # Prevent Admin and Moderator streams from getting deleted
+     # However, if the mod or admin posted it themselves, it can still be Removed
+     # Admins can do whatever they want
+     if current_user.role == 0 or User.find_by_id(stream.user_id).role > 1 or stream.user_id == current_user.id
+             stream.destroy
+             flash[:notice] = "Thread Removed"
+             redirect_to('/board/')
+     else
+         flash[:notice] = "Thread couldn't be removed. Was it posted by an Admin or another Moderator?"
+         redirect_to :back
+     end
   end
 
   def sticky
-      @stream = Stream.find_by_id(params[:stream])
-      @sticky = !@stream.is_stickied
-      @stream.update(is_stickied: @sticky)
+      stream = Stream.find_by_id(params[:stream_id])
+      sticky = !stream.is_stickied
+      stream.update(is_stickied: sticky)
       redirect_to :back
   end
 
   def lock
-      @stream = Stream.find_by_id(params[:stream])
-      @lock = !@stream.locked
-      @stream.update(locked: @lock)
+      stream = Stream.find_by_id(params[:stream_id])
+      lock = !stream.locked
+      stream.update(locked: lock)
       redirect_to :back
   end
 

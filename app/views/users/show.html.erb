@@ -12,14 +12,25 @@
         <% if validate_admin %>
             <% if @user.role == 0 %>
             <% elsif @user.role == 1 %>
-                <a><h4 class="demote-mod" id="<%= @user.id %>"><span class="glyphicon glyphicon-tower"></span>Demote Moderator</h4></a>
+                <h4>
+                    <%= link_to '<span class="glyphicon glyphicon-tower"></span>Demote Moderator'.html_safe, user_make_mod_url(user_id: @user.id),
+                        method: :post %>
+                <h4>
             <% else %>
-                <a href="#"><h4 class="make-mod" id="<%= @user.id %>"><span class="glyphicon glyphicon-tower"></span>Make Mod</h4></a>
-                <a href="#"><h4 class="ban" id="<%= @user.id %>"><span class="glyphicon glyphicon-ban-circle"></span>
+                <h4>
+                    <%= link_to '<span class="glyphicon glyphicon-tower"></span>Make Moderator'.html_safe, user_make_mod_url(user_id: @user.id),
+                        method: :post %>
+                <h4>
                 <% if @user.banned? %>
-                    Remove Ban from User
+                    <h4>
+                        <%= link_to '<span class="glyphicon glyphicon-ban-circle"></span>Remove Ban'.html_safe, user_ban_url(user_id: @user.id),
+                            method: :post %>
+                    <h4>
                 <% else %>
-                    Ban User
+                    <h4>
+                        <%= link_to '<span class="glyphicon glyphicon-ban-circle"></span>Ban User'.html_safe, user_ban_url(user_id: @user.id),
+                            method: :post %>
+                    <h4>
                 <% end %>
             <% end %>
             </h4></a>

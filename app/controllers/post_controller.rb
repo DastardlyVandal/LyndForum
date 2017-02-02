@@ -40,13 +40,23 @@ class PostController < ApplicationController
         @board_id = Stream.find_by_id(@stream_id).board_id
     end
 
-    def delete
-       Post.find_by_id(params[:post]).destroy
-       redirect_to :back
+    def destroy
+       post = Post.find_by_id(params[:id].to_i)
+       # Prevent Admin and Moderator posts from getting deleted
+       # However, if the mod or admin posted it themselves, it can still be Removed
+       # Admins can do whatever they want
+       if current_user.role = 0 or User.find_by_id(post.user_id).role > 1 or post.user_id == current_user.id
+           post.destroy
+           flash[:notice] = "Post Removed."
+           redirect_to :back
+       else
+           flash[:notice] = "Post couldn't be removed. Was it made by a Mod or an Admin?"
+           redirect_to :back
+       end
     end
 
     def ignore
-       Post.find_by_id(params[:post]).update(reported: false)
+       Post.find_by_id(params[:post_id].to_i).update(reported: false)
        redirect_to :back
     end
 

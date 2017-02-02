@@ -1,11 +1,26 @@
 <div>
     <div class="container">
         <!-- Thread Status Indicators -->
-        <% if @stream.is_stickied == true %>
-            <h2><span class="stream_status sticky glyphicon glyphicon-paperclip" id="<%= @stream.id %>" ></span></h2>
-        <% end %>
-        <% if @stream.locked == true %>
-            <h2><span class="stream_status lock glyphicon glyphicon-lock" id="<%= @stream.id %>" ></span></h2>
+        <% if validate_mod %>
+            <% if @stream.is_stickied == true %>
+                <h2>
+                    <%= link_to '<span class="stream_status glyphicon glyphicon-paperclip"></span>'.html_safe, board_stream_sticky_path(stream_id: @stream.id),
+                        method: :post %>
+                    </h2>
+            <% end %>
+            <% if @stream.locked == true %>
+                <h2>
+                    <%= link_to '<span class="stream_status glyphicon glyphicon-lock"></span>'.html_safe, board_stream_lock_path(stream_id: @stream.id),
+                        method: :post %>
+                    <% end %>
+                </h2>
+        <% else %>
+            <% if @stream.is_stickied == true %>
+                <h2><span class="stream_status sticky glyphicon glyphicon-paperclip" id="<%= @stream.id %>" ></span></h2>
+            <% end %>
+            <% if @stream.locked == true %>
+                <h2><span class="stream_status lock glyphicon glyphicon-lock" id="<%= @stream.id %>" ></span></h2>
+            <% end %>
         <% end %>
 
         <h1>
@@ -16,11 +31,19 @@
         <% if validate_mod %>
             <div class="admin-tools">
                 <!-- Moderation Controls -->
-                <a class="delete-thread" id="<%= @stream.id %>"><span class="glyphicon glyphicon-trash"></span>Remove Thread</a>
+                <a><span class="glyphicon glyphicon-trash"></span>
+                <%= link_to 'Remove Thread', board_stream_path(id: @stream.id),
+                    method: :delete,
+                    data: {confirm: 'Are you sure?'} %>
+                </a>
                 <% if  @stream.is_stickied == false %>
-                    <a class="sticky" id="<%= @stream.id %>"><span class="glyphicon glyphicon-paperclip"></span>Sticky Thread</a>
+                    <%= link_to '<span class="glyphicon glyphicon-paperclip"></span> Sticky Thread'.html_safe, board_stream_sticky_path(stream_id: @stream.id),
+                        method: :post %>
                 <% end %>
-                <a class="lock" id="<%= @stream.id %>"><span class="glyphicon glyphicon-lock"></span>Lock Thread</a>
+                <% if @stream.locked == false %>
+                    <%= link_to '<span class="glyphicon glyphicon-lock"></span> Lock Thread'.html_safe, board_stream_lock_path(stream_id: @stream.id),
+                        method: :post %>
+                <% end %>
             </div>
         <% end %>
 
@@ -58,7 +81,9 @@
                                 <% if validate_admin %>
                                     <a href="/board/:/streams/:/post/<%= posts.id.to_s%>/edit"><span class="glyphicon glyphicon-edit"></span>Edit post</a>
                                 <% end %>
-                                    <a class="delete-post" id="<%= posts.id.to_s %>" ><span class="glyphicon glyphicon-trash"></span>Delete post</a>
+                                    <%= link_to '<span class="glyphicon glyphicon-trash"></span> Delete Post'.html_safe, board_stream_post_path(stream_id: @stream.id, id: posts.id),
+                                        method: :delete,
+                                        data: {confirm: 'Are you sure?'} %>
                         <% end %>
                         </div>
                     <% end %>
@@ -96,11 +121,5 @@
 <script>
     <% if user_signed_in? %>
         vote();
-        <% if validate_mod %>
-            sticky();
-            lock();
-            deleteThread();
-            deletePost();
-        <% end %>
     <% end %>
 </script>
