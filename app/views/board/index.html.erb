@@ -20,7 +20,6 @@
         <% @boards.each do |board| %>
             <div class="col-md-4 board-title">
                 <% if board.locked? %>
-                    <span class="board_status lock glyphicon glyphicon-lock" id="<%= board.id %>"></span>
                     <%= link_to '<span class="board_status glyphicon glyphicon-lock"></span>'.html_safe, board_lock_path(board_id: board.id),
                         method: :post %>
                 <% end %>
@@ -32,13 +31,13 @@
                     <div class="admin-tools">
                         <p><a href="/board/<%= board.id %>/moderation/"><span class="glyphicon glyphicon-wrench"></span>View Moderation log</a></p>
                         <% if validate_admin %>
-                            <%= link_to '<span class="glyphicon glyphicon-wrench"></span>Delete Board'.html_safe,
+                            <p><%= link_to '<span class="glyphicon glyphicon-wrench"></span>Delete Board'.html_safe,
                                 board_path(id: board.id),
                                 method: :delete,
-                                data: {confirm: 'Are you sure?'} %>
-                            <% if board.locked == false %>
+                                data: {confirm: 'Are you sure?'} %></p>
+                            <p><% if board.locked == false %>
                                 <%= link_to '<span class="glyphicon glyphicon-wrench"></span>Lock Board'.html_safe, board_lock_path(board_id: board.id),
-                                    method: :post %>
+                                    method: :post %></p>
                             <% end %>
                         <% end %>
                     </div>
