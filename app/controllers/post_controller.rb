@@ -45,7 +45,7 @@ class PostController < ApplicationController
        # Prevent Admin and Moderator posts from getting deleted
        # However, if the mod or admin posted it themselves, it can still be Removed
        # Admins can do whatever they want
-       if current_user.role = 0 or User.find_by_id(post.user_id).role > 1 or post.user_id == current_user.id
+       if current_user.role == 0 or User.find_by_id(post.user_id).role > 1 or post.user_id == current_user.id
            post.destroy
            flash[:notice] = "Post Removed."
            redirect_to :back
